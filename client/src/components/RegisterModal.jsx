@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { register, reset } from '../features/auth/authSlice';
+
 
 function RegisterModal({ setShowReg }) {
   const [formData, setFormData] = useState({
@@ -6,6 +11,24 @@ function RegisterModal({ setShowReg }) {
     password: '',
     password2: '',
   });
+
+  const {email, password, password2} = formData;
+
+  const {isError, isSuccess, message, user} = useSelector((state) => state.auth)
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(()=> {
+    if (isError) {
+      window.alert(message)
+    }
+    if (isSuccess || user ) {
+       navigate('/home')
+      }
+      dispatch(reset());
+  },[isError, isSuccess, message, user, navigate, dispatch])
+
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -16,7 +39,11 @@ function RegisterModal({ setShowReg }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('register button clicked');
+    if(password !== password2) {
+      window.alert('passwords do not match');
+    }
+    const userInfo = {email,password};
+    dispatch(register(userInfo));
   };
 
     const handleClick = () => {
@@ -26,11 +53,12 @@ function RegisterModal({ setShowReg }) {
   return (
     <>
       <div className='registerModal'>
-        <div onClick={handleClick} className='close-icon'>
-          X
+        <div onClick={handleClick} className='float-right'>
+          <AiOutlineCloseCircle size={25} />
         </div>
         <h2 className='modalTitle'>Register</h2>
         <form onSubmit={handleSubmit} className='regForm'>
+       
           <input
             className='inputBox'
             type='email'
@@ -47,7 +75,7 @@ function RegisterModal({ setShowReg }) {
             name='password'
             placeholder='password'
             required={true}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={onChange}
           />
           <input
             className='inputBox'

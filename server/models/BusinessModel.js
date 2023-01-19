@@ -28,6 +28,30 @@ const Business = db.define('business', {
   location: {
     type: Sequelize.STRING,
   },
+  latitude: {
+    type: Sequelize.FLOAT,
+  },
+  longitude: {
+    type: Sequelize.FLOAT,
+  },
+  image: {
+    type: Sequelize.STRING,
+  },
+  phonenumber: {
+    type: Sequelize.INTEGER,
+  },
+  incentive: {
+    type: Sequelize.STRING,
+  },
+  currentcode: {
+    type: Sequelize.STRING,
+  },
+  codestouse: {
+    type: Sequelize.ARRAY(Sequelize.STRING),
+  },
+  storedcodes: {
+    type: Sequelize.ARRAY(Sequelize.STRING),
+  },
 });
 
 module.exports = Business;

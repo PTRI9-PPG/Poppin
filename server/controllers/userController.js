@@ -7,12 +7,11 @@ const User = require('../models/UserModel');
 
 const Refreshkey = require('../models/RefreshkeyModel');
 
-
 const userController = {
   registerUser: async (req, res, next) => {
-    const { username, password, email, location } = req.body;
+    const { email, password } = req.body;
     try {
-      if (!username || !password || !email || !location) {
+      if (!password || !email) {
         res.status(400);
         throw new Error('Please add all required fields');
       }
@@ -27,29 +26,27 @@ const userController = {
       const hashedPassword = await bcrypt.hash(password, 10); // 10 is the *salt*
 
       const newUser = await User.create({
-        username,
+        username: 'Jakejasontimandrewfelix',
         password: hashedPassword,
         email,
-        location,
+        location: 'New york',
       });
 
       //TESTING ALL THAT COMES FROM USER
       // res.status(200).json(newUser);
 
       res.status(200).json({
-        _id: newUser.id,
-        username,
+        id: newUser.id,
+        username: 'Jakejasontimandrewfelix',
         email,
-        location,
+        location: newUser.location,
         token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
-          expiresIn: '60d',
+          expiresIn: '20m',
         }),
       });
     } catch (err) {
-
       console.log(err);
       return next(err);
-
     }
   },
 
@@ -61,7 +58,6 @@ const userController = {
         res.status(400);
         throw new Error('please enter all required fields');
       }
-
 
       const userExists = await User.findOne({ where: { email } });
 
@@ -78,8 +74,7 @@ const userController = {
           refreshToken: jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET),
         };
 
-
-        Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
+        // Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
 
         // 2. write a function to store the email and the token <-- Completed
 
@@ -87,11 +82,9 @@ const userController = {
         res.cookie = tokens;
         //MAKE SURE TO GRAB TOKENS.TOKEN
         res.status(200).json({
-
-          _id: userExists.id,
-
+          id: userExists.id,
           email,
-          username: userExists.username,
+          username: 'jake',
           location: userExists.location,
           tokens,
         });
@@ -103,9 +96,7 @@ const userController = {
         throw new Error('Email and Password combination is invalid');
       }
     } catch (err) {
-
       return next(err);
-
     }
   },
 
@@ -118,7 +109,6 @@ const userController = {
       res.status(statusCode).json({
         message: err.message ? err.message : 'An unknown error occured',
       });
-
     }
   },
 
@@ -162,16 +152,21 @@ const userController = {
         }
       }
     } catch (err) {
-      const statusCode = res.statusCode ? res.statusCode : 500;
-      res.status(statusCode).json({
-        message: err.message
-          ? err.message
-          : 'Error in the checkAccessToken Function in UserController',
-      });
-
+      console.log(err);
+      return next(err);
     }
   },
 
+  deleteUser: async (req, res, next) => {
+    try {
+      const userToDelete = await User.destroy({ where: { id: req.params.id } });
+      console.log('user removed');
+      res.status(200).json({ message: 'user removed' });
+    } catch (err) {
+      console.log(err, 'error in deleteUser');
+      return next(err);
+    }
+  },
   // checkAccessToken: async (req, res, next) => {
   //   try {
   //     if (res.cookie) {
