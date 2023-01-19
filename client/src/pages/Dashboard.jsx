@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import corkMarker from '../assets/images/corkMarker';
+import API_KEY from '../../key'
 
 import API_KEY from '../../key';
 import {
