@@ -29,13 +29,11 @@ const LandingPage = () => {
           <Header setShowLogin={setShowLogin} setShowReg={setShowReg} />
         </div>
         {/* This will render the login and registration modals when clicked (and off when x'ed out) */}
-
         <FootImg className='foot' />
         <div
           className='parallax'
           style={{ backgroundImage: 'url(' + bar + ')' }}
         />
-
         <ul className='cards' ref={ref}>
           <li className='card'>
             <div>
