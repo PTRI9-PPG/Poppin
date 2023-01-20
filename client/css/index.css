@@ -778,7 +778,6 @@ select {
   position: fixed;
   z-index: 10;
   display: flex;
-  flex-grow: 3;
   width: 100%;
   align-items: center;
   justify-content: space-between;
@@ -1210,10 +1209,6 @@ select {
 
 .right-0 {
   right: 0px;
-}
-
-.right-1 {
-  right: 1em;
 }
 
 .top-96 {
