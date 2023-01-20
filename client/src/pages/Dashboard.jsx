@@ -63,22 +63,6 @@ const Dashboard = () => {
     height: 'calc(100vh - 5em)',
   };
 
-  // const getAllCoordinates = async () => {
-  //   try {
-  //     const allBusinesses = await axios.get('http://localhost:8080/businesses');
-  //     const latLongArr = allBusinesses.data.businesses.map((element) => {
-  //       return {
-  //         lat: parseFloat(element.latitude),
-  //         lng: parseFloat(element.longitude),
-  //         id: element.id,
-  //       };
-  //     });
-  //     return latLongArr;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const getAllCoordinates = async () => {
     try {
       const allBars = bars;
