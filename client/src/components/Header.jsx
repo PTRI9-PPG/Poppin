@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { logout, reset } from '../features/auth/authSlice';
+import { handleSignOut } from './GoogleAuth';
 
 const Header = ({ setShowLogin, setShowReg }) => {
   //use selector reads data from the store. store is modified by the reducer functions in the slice

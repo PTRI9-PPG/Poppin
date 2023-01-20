@@ -3,6 +3,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login, reset } from '../features/auth/authSlice';
+import GoogleAuth from './GoogleAuth';
 
 const LoginModal = ({ setShowLogin }) => {
   const [formData, setFormData] = useState({
@@ -83,6 +84,9 @@ const LoginModal = ({ setShowLogin }) => {
         <button className='stdButton' type='submit'>
           Login
         </button>
+        <div id="signInDiv">
+          <GoogleAuth/>
+        </div>
       </form>
     </div>
   );

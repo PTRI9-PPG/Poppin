@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server/server.js",
-    "dev": "webpack serve --hot & nodemon server/server.js",
+    "dev": "webpack-dev-server",
     "watch": "tailwindcss -i ./client/src/main.css -o ./client/css/index.css --watch"
   },
   "repository": {
@@ -37,10 +37,14 @@
     "css-loader": "^6.7.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^9.0.0",
+    "jwt-decode": "^3.1.2",
     "mini-css-extract-plugin": "^2.7.2",
+    "mongoose": "^6.8.4",
     "nodemon": "^2.0.20",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
