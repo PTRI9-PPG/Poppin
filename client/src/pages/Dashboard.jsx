@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import corkMarker from '../assets/images/corkMarker';
-import API_KEY from '../../key'
 
 import API_KEY from '../../key';
 import {
@@ -63,6 +62,22 @@ const Dashboard = () => {
     width: '65vw',
     height: 'calc(100vh - 5em)',
   };
+
+  // const getAllCoordinates = async () => {
+  //   try {
+  //     const allBusinesses = await axios.get('http://localhost:8080/businesses');
+  //     const latLongArr = allBusinesses.data.businesses.map((element) => {
+  //       return {
+  //         lat: parseFloat(element.latitude),
+  //         lng: parseFloat(element.longitude),
+  //         id: element.id,
+  //       };
+  //     });
+  //     return latLongArr;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const getAllCoordinates = async () => {
     try {
