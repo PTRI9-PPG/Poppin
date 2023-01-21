@@ -1,0 +1,48 @@
+.BusinessCard {
+  position: relative;
+  margin: 1em 0;
+  padding: 3em;
+  display: flex;
+  background-color: #1d2935;
+  transition: 200ms;
+  border: 2px solid $accent;
+  font-family: $mainFont;
+  font-size: 1em;
+  color: #e1e1e1bb;
+  img {
+    width: 60%;
+    object-fit: contain;
+    aspect-ratio: 3/2;
+  }
+  .cardInfo {
+    width: 60%;
+    display: flex;
+    padding-top: 1em;
+
+    .bussName {
+      color: $secondary;
+      font-size: 2.5em;
+    }
+    .score {
+      color: $accent;
+      position: absolute;
+      font-size: 150%;
+      right: 10%;
+      bottom: 25%;
+    }
+    button {
+      height: 6vh;
+      width: 6vw;
+      border-radius: 1vw;
+      cursor: pointer;
+      position: absolute;
+      right: 16%;
+      bottom: 7%;
+    }
+  }
+}
+.BusinessCard:hover {
+  background-color: #101922;
+  margin: 1.2em 0;
+  border: 3px solid $accent;
+}
