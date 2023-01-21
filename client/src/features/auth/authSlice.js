@@ -67,6 +67,9 @@ export const authSlice = createSlice({
     setCheckedIn: (state, action) => {
       state.checkedIn = action.payload;
     },
+    oauthLogin: (state, action) => {
+      state.user = action.payload
+    }
   },
   //handle lifecycle of our promise functions
   extraReducers: (builder) => {
@@ -104,5 +107,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset, setCheckedIn } = authSlice.actions;
+export const { reset, setCheckedIn, oauthLogin } = authSlice.actions;
 export default authSlice.reducer;

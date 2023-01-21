@@ -1,23 +1,19 @@
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch} from 'react-redux'
+import {oauthLogin } from '../features/auth/authSlice'
 import jwt_decode from 'jwt-decode';
 
 const GoogleAuth = () => {
-    const [ user, setUser ] = useState({});
-
+  const dispatch = useDispatch();
+    // const [ user, setUser ] = useState({});
     const handleCallbackResponse = response => {
         console.log("Encoded JWT ID token: " + response.credential);
-        var userObj = jwt_decode(response.credential);
+        const userObj = jwt_decode(response.credential);
         console.log(userObj);
-        //will use state to save user's info, but better to use a cache/redux
-        setUser(userObj);
-        //this allows us to hide the google login in button when someone logins in with Google
-        document.getElementById("signInDiv").hidden = true;
+        // setUser(userObj);
+        dispatch(oauthLogin(userObj));
+        console.log('userObj.email ', userObj.email);
       };
-    
-    const handleSignOut = event => {
-        setUser({});
-        document.getElementById("signInDiv").hidden = false;
-    };
     
     useEffect(() => {
         google.accounts.id.initialize({
@@ -29,9 +25,7 @@ const GoogleAuth = () => {
           document.getElementById("signInDiv"),
           { theme: "outline", size: "large"}
         );
-
-        google.accounts.id.prompt();
-    }, []); 
+      }, []); 
     //for the 2nd parameter, we put an empty array because we only want useEffect to run once
 };
  

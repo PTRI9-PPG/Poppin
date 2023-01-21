@@ -100,6 +100,11 @@ const userController = {
     }
   },
 
+  // OauthLogin: async(req, res) => {
+  //   const { credential } = req.body
+
+  // }, 
+
   getAllUsers: async (_, res) => {
     try {
       const users = await User.findAll();

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { logout, reset } from '../features/auth/authSlice';
-import { handleSignOut } from './GoogleAuth';
+import GoogleAuth from './GoogleAuth';
 
 const Header = ({ setShowLogin, setShowReg }) => {
   //use selector reads data from the store. store is modified by the reducer functions in the slice
@@ -42,6 +42,8 @@ const Header = ({ setShowLogin, setShowReg }) => {
     navigate('/home');
   };
 
+  // console.log('user-->', user);
+
   return (
     <nav className='nav'>
       <div className='logoName'>
@@ -63,6 +65,9 @@ const Header = ({ setShowLogin, setShowReg }) => {
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>
+            <div className="userpic">
+              <img src={user.picture}></img>
+            </div>
             <div className='iconRow'>
               <FaTwitter className='socIcon' />
               <FaFacebook className='socIcon' />
