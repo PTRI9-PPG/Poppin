@@ -19,7 +19,7 @@ const LoginModal = ({ setShowLogin }) => {
 
   //grab state from redux
   const { user, isError, isSuccess, message } = useSelector(
-    (state) => state.auth,
+    (state) => state.auth
   );
 
   useEffect(() => {
@@ -55,42 +55,35 @@ const LoginModal = ({ setShowLogin }) => {
   };
 
   return (
-    <div className='authPrompt'>
+    <div className="authPrompt">
       <div onClick={handleClick}>
         <AiOutlineCloseCircle />
       </div>
       <h2>Login</h2>
       <form onSubmit={onSubmit}>
         <input
-          autocomplete='off'
-          type='email'
-          id='email'
-          name='email'
+          autocomplete="off"
+          type="email"
+          id="email"
+          name="email"
           value={email}
-          placeholder=' Type Your Email'
+          placeholder=" Type Your Email"
           required={true}
           onChange={onChange}
         />
         <input
-          autocomplete='off'
-          type='password'
-          id='password'
-          name='password'
-          placeholder='Type Your Password'
+          autocomplete="off"
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Type Your Password"
           value={password}
           required={true}
           onChange={onChange}
         />
-<<<<<<< HEAD
-        <button className='stdButton' type='submit'>
+        <button type="submit" className="button">
           Login
         </button>
-        <div id="signInDiv">
-          <GoogleAuth/>
-        </div>
-=======
-        <button type='submit' className='button'>Login</button>
->>>>>>> dev
       </form>
     </div>
   );
