@@ -20,12 +20,12 @@ const CheckinDetails = () => {
     console.log('checked out!');
     navigate('/home');
   };
-
+  console.log('SELECTED BUSINESS ', selectedBusiness);
   //below, data needs to be mapped to multiple cards and rendered for each card checked in
   return (
     <>
       <div>
-        {checkedIn ? (
+        {!checkedIn ? (
           <h3>You are not currently checked in anywhere...</h3>
         ) : (
           <div>

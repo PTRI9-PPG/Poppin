@@ -11,7 +11,7 @@ import { setCheckedIn } from '../features/auth/authSlice';
 
 const CheckIn_OutModal = ({ setShowCheckinModal }) => {
   const { selectedBusiness, message } = useSelector(
-    (state) => state.businesses,
+    (state) => state.businesses
   );
   const { checkedIn } = useSelector((state) => state.auth);
 
@@ -24,7 +24,10 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
     e.preventDefault();
     console.log('button clicked');
     try {
-      const response = dispatch(checkCode({ id: selectedBusiness.id, code }));
+      const response = await dispatch(
+        checkCode({ id: selectedBusiness.id, code: code })
+      );
+      console.log('RESPONSEEE', response);
       if (response.payload.message === 'Code matched, new code generated') {
         dispatch(setCheckedIn(true));
         dispatch(
@@ -32,10 +35,10 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
             id: selectedBusiness.id,
             currentcapacity: selectedBusiness.currentcapacity,
             poppinscore: selectedBusiness.poppinscore,
-          }),
+          })
         );
-        dispatch(getAllBusinesses());
-
+        dispatch(getAllBusinesses()); //not sure if still needed, check later
+        // window.location.reload();
         setShowCheckinModal(false);
       } else {
         console.log('message', message);
