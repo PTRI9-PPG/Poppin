@@ -1,13 +1,13 @@
-// import React from 'react';
+import React from 'react';
 // import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 // import { useDispatch } from 'react-redux';
-// import Header from '../components/Header';
+import Header from '../components/Header';
 // import { logout, reset } from '../features/auth/authSlice';
 
 // // // test is an alias of it, can use either one
-// test('return true', () => {
-//   expect(true).toBe(true);
-// });
+test('return true', () => {
+  expect(true).toBe(true);
+});
 
 // jest.mock('react-redux', () => ({
 //   useDispatch: jest.fn(),

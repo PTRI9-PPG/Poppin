@@ -67,6 +67,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "autoprefixer": "^10.4.13",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^29.3.1",
     "concurrently": "^7.6.0",
     "global-jsdom": "^8.7.0",
