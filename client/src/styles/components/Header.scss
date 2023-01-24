@@ -11,6 +11,14 @@
     align-items: center;
     height: 5.7em;
     padding: 1.25em;
+    
+  .toggleSwitch {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 5.7em;
+    padding: 1.25em;
+  }
 
     @keyframes shake {
       0% {

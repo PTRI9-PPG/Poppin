@@ -4,12 +4,14 @@ import bar from '../assets/images/bar.jpg';
 import Header from '../components/Header';
 import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
+import BusinessRegisterModal from '../components/BusinessRegisterModal';
 import FootImg from './svg/footer.svg';
 import { useInView } from 'react-intersection-observer';
 
 const LandingPage = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showReg, setShowReg] = useState(false);
+  const [showRegBusiness, setShowRegBusiness] = useState(false);
 
   const [ref, inView] = useInView({
     /* options */
@@ -19,23 +21,28 @@ const LandingPage = () => {
   return (
     <>
       <div
-        className='landingPage'
+        className="landingPage"
         style={{
-          filter: showLogin || showReg ? 'blur(5px)' : 'none',
+          filter:
+            showLogin || showReg || showRegBusiness ? 'blur(5px)' : 'none',
           overflow: 'hidden',
         }}
       >
         <div>
-          <Header setShowLogin={setShowLogin} setShowReg={setShowReg} />
+          <Header
+            setShowLogin={setShowLogin}
+            setShowReg={setShowReg}
+            setShowRegBusiness={setShowRegBusiness}
+          />
         </div>
         {/* This will render the login and registration modals when clicked (and off when x'ed out) */}
-        <FootImg className='foot' />
+        <FootImg className="foot" />
         <div
-          className='parallax'
+          className="parallax"
           style={{ backgroundImage: 'url(' + bar + ')' }}
         />
-        <ul className='cards' ref={ref}>
-          <li className='card'>
+        <ul className="cards" ref={ref}>
+          <li className="card">
             <div>
               <IoAccessibility />
               <IoAccessibility />
@@ -43,7 +50,7 @@ const LandingPage = () => {
             <h2>Hate Crowds?</h2>
             <p>Find a great deal while being in a more intimate setting.</p>
           </li>
-          <li className='card'>
+          <li className="card">
             <div>
               <IoAccessibility />
               <IoAccessibility />
@@ -56,7 +63,7 @@ const LandingPage = () => {
               you find the livest venue in town!
             </p>
           </li>
-          <li className='card'>
+          <li className="card">
             <div>
               <IoAccessibility />
               <IoAccessibility />
@@ -74,7 +81,11 @@ const LandingPage = () => {
       </div>
 
       {showLogin ? <LoginModal setShowLogin={setShowLogin} /> : null}
+
       {showReg ? <RegisterModal setShowReg={setShowReg} /> : null}
+      {showRegBusiness ? (
+        <BusinessRegisterModal setShowRegBusiness={setShowRegBusiness} />
+      ) : null}
     </>
   );
 };
