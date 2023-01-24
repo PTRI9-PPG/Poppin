@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setSelectedBusiness } from '../features/businesses/businessSlice';
 
-const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
+const BusinessCard = ({
+  businessCard,
+  setShowCheckinModal,
+}) => {
   const dispatch = useDispatch();
   const { checkedIn } = useSelector((state) => state.auth);
   const handleBusinessClick = (e) => {

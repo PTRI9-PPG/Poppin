@@ -21,7 +21,6 @@ const BusinessCardContainer = ({ showCheckinModal, setShowCheckinModal }) => {
             key={businessCard.id}
             businessCard={businessCard}
             setShowCheckinModal={setShowCheckinModal}
-            showCheckinModal={showCheckinModal}
           />
         ))}
       </ul>

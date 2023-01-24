@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import corkMarker from '../assets/images/corkMarker';
+import Checkin from './Checkin';
 
 import API_KEY from '../../key';
 import {
@@ -19,9 +20,10 @@ import axios from 'axios';
 const Dashboard = () => {
   //intialize state for map and searchbox
   //state is mainly to reference map and searchbox components so we can use methods under the hood
+  // const [location, setLocation] = useState(null);
   const [map, setMap] = useState(null);
   const [searchBox, setSearchBox] = useState(null);
-  const [location, setLocation] = useState(null);
+  const [checkInPage, setCheckInPage] = useState(false);
   const [markers, setMarkers] = useState(null);
   const [searched, setSearched] = useState(false);
   const [showCards, setShowCards] = useState(false);
@@ -173,13 +175,13 @@ const Dashboard = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    top: '10em',
                     right: '2em',
-                    height: '20em',
                     width: '20em',
                   }
                 : {
                     left: '25vw',
-                    top: '35vh',
+                    top: '50vh',
                     width: '45vw',
                   }
             }
@@ -196,7 +198,13 @@ const Dashboard = () => {
                 </button> */}
           </form>
         </StandaloneSearchBox>
-        <main style={{ filter: searched ? 'none' : 'blur(5px)' }}>
+        <main
+          style={
+            {
+              // filter: searched || !showCheckinModal ? 'none' : 'blur(5px)',
+            }
+          }
+        >
           {' '}
           {/*  max width 1100px margin 0 auto */}
           {/* User Location form section */}
@@ -214,7 +222,9 @@ const Dashboard = () => {
           {/* Map section */}
           <div
             className='MapContainer'
-            style={{ filter: searched ? 'none' : 'blur(5px)' }}
+            style={{
+              filter: searched ? 'none' : 'blur(5px)',
+            }}
           >
             <GoogleMap
               mapContainerStyle={containerStyle}
