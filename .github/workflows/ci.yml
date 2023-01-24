@@ -17,8 +17,12 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      # - name: update packages
+      #   run: npm i
+      
       - name: Install dependencies
         run: npm ci #npm ci: installs packages from package-lock.json
+
 
       # - name: Run Prettier linter
       #   run: npx prettier --check "**/*.{js,jsx,css}"

@@ -1,10 +1,10 @@
 // import React from 'react';
 // import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 // import { useDispatch } from 'react-redux';
-// import Header from './Header';
+// import Header from '../components/Header';
 // import { logout, reset } from '../features/auth/authSlice';
 
-// // test is an alias of it, can use either one
+// // // test is an alias of it, can use either one
 // test('return true', () => {
 //   expect(true).toBe(true);
 // });
