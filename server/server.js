@@ -16,7 +16,7 @@ app.use('/users', userRoutes);
 
 app.use('/businesses', businessRoutes);
 
-app.use((err, _, res, next) => {
+app.use((err, res) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
   res.status(statusCode).json({
     message: err.message ? err.message : 'An unknown error occured',
