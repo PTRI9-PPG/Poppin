@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import { Link, useNavigate } from 'react-router-dom';
 import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
-import corkMarker from '../assets/images/corkMarker';
+import corkMarker from '../assets/images/corkMarker.png';
 
 import API_KEY from '../../key';
 import {
@@ -68,7 +68,7 @@ const Dashboard = () => {
           'lat: ',
           bar.geometry.location.lat(),
           'lng: ',
-          bar.geometry.location.lng(),
+          bar.geometry.location.lng()
         );
         latLngArr.push({
           lat: parseFloat(bar.geometry.location.lat()),
