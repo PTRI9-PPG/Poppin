@@ -62,7 +62,7 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
 
   return (
     <>
-      <div>
+      <div className='checkIn'>
         <div onClick={handleClick}>
           <AiOutlineCloseCircle size={25} />
         </div>

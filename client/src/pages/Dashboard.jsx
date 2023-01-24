@@ -32,14 +32,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   //Upon rendering, ensure that the map loads with the client's location
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      setLocation({
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude,
-      });
-    });
-  }, []);
+  useEffect(() => {}, []);
 
   //when user is falsey and routes aren't protected, temp link to dashboard will redirect to landing page
   // useEffect(() => {
@@ -60,7 +53,8 @@ const Dashboard = () => {
   //This is required otheriwse, map won't render
   const containerStyle = {
     width: '65vw',
-    height: 'calc(100vh - 5em)',
+    height: 'calc(100vh - 4.12em)',
+    overflow: 'hidden',
   };
 
   const getAllCoordinates = async () => {
@@ -110,8 +104,6 @@ const Dashboard = () => {
 
   //Move the map to the query location provided in the searchbox
   const onPlacesChanged = async () => {
-    setSearched(true);
-
     const places = await searchBox.getPlaces();
     const bounds = new google.maps.LatLngBounds();
 
@@ -137,6 +129,7 @@ const Dashboard = () => {
     bounds.union(places[0].geometry.viewport);
     map.fitBounds(bounds);
     setMarkers(await createMarkers());
+    setSearched(true);
     setShowCards(true);
   };
 
@@ -165,8 +158,45 @@ const Dashboard = () => {
     <>
       <div className='Dashboard'>
         <Header className='header' />
-
-        <main>
+        <StandaloneSearchBox
+          onLoad={onSBLoad}
+          onPlacesChanged={onPlacesChanged}
+        >
+          <form
+            onSubmit={handleSubmit}
+            className='search'
+            style={
+              searched
+                ? {
+                    zIndex: 1,
+                    position: 'fixed',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    right: '2em',
+                    height: '20em',
+                    width: '20em',
+                  }
+                : {
+                    left: '25vw',
+                    top: '35vh',
+                    width: '45vw',
+                  }
+            }
+          >
+            <input
+              type='text'
+              placeholder={
+                searched ? 'Address' : 'Where Would You Like to Search?'
+              }
+            />
+            {/* Deactivated since selecting on map is submitting */}
+            {/* <button className='stdButton' type='submit'>
+                  Submit
+                </button> */}
+          </form>
+        </StandaloneSearchBox>
+        <main style={{ filter: searched ? 'none' : 'blur(5px)' }}>
           {' '}
           {/*  max width 1100px margin 0 auto */}
           {/* User Location form section */}
@@ -179,24 +209,12 @@ const Dashboard = () => {
             </button>
           </form>
           <h3>OR</h3> */}
-            <StandaloneSearchBox
-              onLoad={onSBLoad}
-              onPlacesChanged={onPlacesChanged}
-            >
-              <form onSubmit={handleSubmit}>
-                <input type='text' placeholder='Address' />
-                {/* Deactivated since selecting on map is submitting */}
-                {/* <button className='stdButton' type='submit'>
-                  Submit
-                </button> */}
-              </form>
-            </StandaloneSearchBox>
           </div>
           {/* End User Form Section */}
           {/* Map section */}
           <div
             className='MapContainer'
-            style={{ filter: searched ? 'blur(5px)' : 'none' }}
+            style={{ filter: searched ? 'none' : 'blur(5px)' }}
           >
             <GoogleMap
               mapContainerStyle={containerStyle}
@@ -209,7 +227,7 @@ const Dashboard = () => {
           </div>
           {/* End Map section */}
           {/* pic - <address / phone > <poppin score/ incentive>  <checkin>*/}
-          {!showCards ? (
+          {showCards ? (
             <CardContainer
               setShowCheckinModal={setShowCheckinModal}
               showCheckinModal={showCheckinModal}
