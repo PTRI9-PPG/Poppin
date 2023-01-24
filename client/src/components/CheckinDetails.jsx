@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setCheckedIn } from '../features/auth/authSlice';
 import { setSelectedBusiness } from '../features/businesses/businessSlice';
+import Fillimg from './placeHolder.png';
+
 const CheckinDetails = () => {
   const navigate = useNavigate();
   const { selectedBusiness } = useSelector((state) => state.businesses);
@@ -23,21 +25,15 @@ const CheckinDetails = () => {
   return (
     <>
       <div>
-        {!checkedIn ? (
-          <h3>
-            You are not currently checked in anywhere...
-          </h3>
+        {checkedIn ? (
+          <h3>You are not currently checked in anywhere...</h3>
         ) : (
           <div>
             <h3>Your Current Checkin Details</h3>
             <div>
-              <img
-                src={selectedBusiness?.image}
-                alt='img'
-              />
-              <div>
-                {selectedBusiness?.businessname}{' '}
-              </div>
+              {/* <img src={selectedBusiness?.image} alt='img' /> */}
+              <img src={Fillimg} alt='' />
+              <div>{selectedBusiness?.businessname} </div>
               <div>City: </div>
               <div>{selectedBusiness?.location} </div>
               <div>Phone Number:</div>
@@ -72,9 +68,7 @@ const CheckinDetails = () => {
               </div>
             </div>
             <div></div>
-            <button onClick={handleCheckOut}>
-              Check Out
-            </button>
+            <button onClick={handleCheckOut}>Check Out</button>
           </div>
         )}
       </div>

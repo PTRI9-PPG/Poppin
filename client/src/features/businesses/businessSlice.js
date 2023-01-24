@@ -23,7 +23,7 @@ export const getAllBusinesses = createAsyncThunk(
       const message = err.response?.data.message || err.toString();
       return thunkAPI.rejectWithValue(message);
     }
-  }
+  },
 );
 
 export const updateBusiness = createAsyncThunk(
@@ -42,17 +42,18 @@ export const updateBusiness = createAsyncThunk(
       const message = err.response?.data.message || err.toString();
       return rejectWithValue(message);
     }
-  }
+  },
 );
 
 export const checkCode = createAsyncThunk(
   'business/checkCode',
   async (businessData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        businessURL + 'checkin/' + businessData.id,
-        { code: businessData.code }
-      );
+      const response = await axios
+        .post(businessURL + 'checkin/' + businessData.id, {
+          code: businessData.code,
+        })
+        .then((data) => console.log(data));
       if (response.data) {
         return response.data;
       }
@@ -60,7 +61,7 @@ export const checkCode = createAsyncThunk(
       const message = err.response?.data.message || err.toString();
       return rejectWithValue(message);
     }
-  }
+  },
 );
 
 //put all reducers in here its the home base for all global funcs/states to be utilized by all the various businessess
@@ -119,7 +120,7 @@ export const businessSlice = createSlice({
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
-        })
+        }),
       )
       .addCase(checkCode.pending, (state) => {
         state.isLoading = true;
