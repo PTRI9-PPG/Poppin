@@ -15,6 +15,25 @@ const initialState = {
   checkedIn: false,
 };
 
+export const Oauthlogin = createAsyncThunk(
+  'Oauth/login',
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axios.post(authURL + 'login', userData);
+      if (response.data) {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        // window.location.reload();
+        return response.data;
+      }
+    } catch (err) {
+      //axios response || backend response || error from this function
+      //in backend, we send back {message: 'error message'} <-- we access this through err.response.data<.message>
+      const message = err.response?.data.message ?? err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const login = createAsyncThunk(
   'auth/login',
   async (userData, thunkAPI) => {

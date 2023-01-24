@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +7,7 @@ import logo from '../assets/images/logo.png';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { logout, reset } from '../features/auth/authSlice';
 import GoogleAuth from './GoogleAuth';
+import RegisterModal from './RegisterModal';
 
 const Header = ({ setShowLogin, setShowReg }) => {
   //use selector reads data from the store. store is modified by the reducer functions in the slice
@@ -43,16 +45,13 @@ const Header = ({ setShowLogin, setShowReg }) => {
   };
 
   // console.log('user-->', user);
+  // console.log('username-->', formData);
 
   return (
     <nav className='header'>
       <div className='logo'>
         <img src={logo} alt='corks' />
       </div>
-
-      {/* <div>
-          <GiHamburgerMenu color='white' size={30} />
-        </div> */}
       <ul>
         {user ? (
           <>
@@ -67,6 +66,7 @@ const Header = ({ setShowLogin, setShowReg }) => {
             </li>
             <div className="userpic">
               <img src={user.picture}></img>
+              <h1>{`Let's get Poppin' ${user.given_name} ${user.family_name}`}</h1>
             </div>
           </>
         ) : (
@@ -86,3 +86,4 @@ const Header = ({ setShowLogin, setShowReg }) => {
 };
 
 export default Header;
+

@@ -105,6 +105,21 @@ const userController = {
 
   // }, 
 
+  OauthLoginVerifyGoogleToken: async(req, res) => {
+    const { credential } = req.body
+    try{
+      const ticket = await client.verifyIdToken({
+      //JWT and client ID needed
+      idToken: credential.token,
+      audience: GOOGLE_CLIENT_ID,
+      });
+      return { payload: ticket.getPayload() };
+    } catch (error) {
+      return { error: "Invalid user detected. Please try again" };
+    }
+  }, 
+
+
   getAllUsers: async (_, res) => {
     try {
       const users = await User.findAll();
