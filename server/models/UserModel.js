@@ -25,4 +25,14 @@ const User = db.define('user', {
   // },
 });
 
+// const GoogleUser = db.define('user', {
+//   username: {
+//     type: Sequelize.STRING,
+//   },
+//   googleId: {
+//     type: Sequelize.STRING,
+//   },
+// });
+
+// module.exports = GoogleUser;
 module.exports = User;

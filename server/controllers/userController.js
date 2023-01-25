@@ -100,11 +100,6 @@ const userController = {
     }
   },
 
-  // OauthLogin: async(req, res) => {
-  //   const { credential } = req.body
-
-  // }, 
-
   OauthLoginVerifyGoogleToken: async(req, res) => {
     const { credential } = req.body
     try{

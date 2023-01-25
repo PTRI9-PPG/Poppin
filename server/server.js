@@ -17,30 +17,30 @@ app.use('/users', userRoutes);
 app.use('/businesses', businessRoutes);
 
 // Oauth passport
-const cookieSession = require('cookie-session');
-const passportSetup = require("./Oauth/passport");
-const authRoute = require("./oauth/auth");
-const passport = require('passport');
-const cors = require("cors");
+// const session = require('cookie-session');
+// const passportSetup = require("./Oauth/passport");
+// const authRoute = require("./oauth/auth");
+// const passport = require('passport');
+// const cors = require("cors");
 
 //Oauth server
-app.use(
-  cors({
-    origin: "http://localhost:8080",
-    methods: "GET, POST, PUT, DELETE",
-    credentials: true,
-  })
-);
-app.use(cookieSession(
-  {name: "session",
-  keys:["poppin"],
-  maxAge: 24 * 60 * 60 * 100}
-));
+// app.use(
+//   cors({
+//     origin: "http://localhost:8080",
+//     methods: "GET, POST, PUT, DELETE",
+//     credentials: true,
+//   })
+// );
+// app.use(cookieSession(
+//   {name: "session",
+//   keys:["poppin"],
+//   maxAge: 24 * 60 * 60 * 100}
+// ));
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-app.use('/auth', authRoute);
+// app.use('/auth', authRoute);
 
 //error handler
 app.use((err, res) => {
