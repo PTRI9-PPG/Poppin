@@ -17,7 +17,7 @@ const businessController = {
         throw new Error('please enter all fields');
       }
 
-      const businessExists = Business.findOne({ where: { email } });
+      const businessExists = await Business.findOne({ where: { email } });
 
       if (businessExists) {
         res.status(400);
@@ -85,9 +85,9 @@ const businessController = {
         password,
         email,
         location,
-        poppinscore,
-        maxcapacity,
-        currentcapacity,
+        poppinscore: 100,
+        maxcapacity: 100,
+        currentcapacity: 100,
         latitude,
         longitude,
         image,

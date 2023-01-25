@@ -3,7 +3,10 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { register, reset } from '../features/auth/authSlice';
-import { initialRegisterBusiness } from '../features/businesses/businessSlice';
+import {
+  initialRegisterBusiness,
+  setSelectedBusiness,
+} from '../features/businesses/businessSlice';
 
 function RegisterModal({ setShowReg }) {
   const [formData, setFormData] = useState({
@@ -20,7 +23,7 @@ function RegisterModal({ setShowReg }) {
     (state) => state.auth
   );
 
-  const { isSuccess: businessSuccess } = useSelector(
+  const { isSuccess: businessSuccess, selectedBusiness } = useSelector(
     (state) => state.businesses
   );
 
@@ -56,7 +59,11 @@ function RegisterModal({ setShowReg }) {
     const userInfo = { email, password };
     if (isChecked) {
       dispatch(register(userInfo));
-    } else dispatch(initialBusinessRegister(userInfo));
+    } else {
+      dispatch(initialRegisterBusiness(userInfo));
+      dispatch(setSelectedBusiness(userInfo));
+      console.log('selected business ', selectedBusiness);
+    }
   };
 
   const handleClick = () => {
