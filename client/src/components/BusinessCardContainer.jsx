@@ -20,8 +20,8 @@ const BusinessCardContainer = ({ showCheckinModal, setShowCheckinModal }) => {
           <BusinessCard
             key={businessCard.id}
             businessCard={businessCard}
-            setShowCheckinModal={setShowCheckinModal}
             showCheckinModal={showCheckinModal}
+            setShowCheckinModal={setShowCheckinModal}
           />
         ))}
       </ul>
