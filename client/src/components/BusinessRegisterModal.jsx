@@ -26,7 +26,7 @@ function BusinessRegisterModal({ setShowRegBusiness }) {
       window.alert(message);
     }
     if (isSuccess || user) {
-      navigate('/home');
+      navigate('/business');
     }
     dispatch(reset());
   }, [isError, isSuccess, message, user, navigate, dispatch]);
@@ -44,6 +44,7 @@ function BusinessRegisterModal({ setShowRegBusiness }) {
       window.alert('passwords do not match');
     }
     const businessInfo = { email, password };
+    console.log('business info ', businessInfo);
     dispatch(register(businessInfo));
   };
 
