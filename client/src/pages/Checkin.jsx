@@ -7,10 +7,7 @@ const Checkin = () => {
   return (
     <>
       <div>
-        <Header />
-        <div>
           <CheckinDetails />
-        </div>
       </div>
     </>
   );
