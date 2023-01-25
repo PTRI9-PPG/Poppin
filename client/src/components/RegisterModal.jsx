@@ -16,6 +16,7 @@ function RegisterModal({ setShowReg }) {
   });
 
   const [isChecked, setIsChecked] = useState(false);
+  console.log('INITIAL IS CHECKED', isChecked);
 
   const { email, password, password2 } = formData;
 
@@ -42,7 +43,7 @@ function RegisterModal({ setShowReg }) {
       navigate('/registerBusiness');
     }
     dispatch(reset());
-  }, [isError, isSuccess, message, user, navigate, dispatch]);
+  }, [isError, isSuccess, message, user, navigate, dispatch, businessSuccess]);
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -57,7 +58,7 @@ function RegisterModal({ setShowReg }) {
       window.alert('passwords do not match');
     }
     const userInfo = { email, password };
-    if (isChecked) {
+    if (!isChecked) {
       dispatch(register(userInfo));
     } else {
       dispatch(initialRegisterBusiness(userInfo));
@@ -108,13 +109,14 @@ function RegisterModal({ setShowReg }) {
           <input
             type='checkbox'
             checked={isChecked}
-            onChange={() => {
-              if (isChecked) {
-                setIsChecked(false);
-              } else {
-                setIsChecked(true);
-              }
-              console.log(isChecked);
+            onChange={(e) => {
+              setIsChecked(!isChecked);
+              // if (isChecked) {
+              //   setIsChecked(false);
+              // } else {
+              //   setIsChecked(true);
+              // }
+              // console.log(isChecked);
             }}
           />
           <p>Business?</p>

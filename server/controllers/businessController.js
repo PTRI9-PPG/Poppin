@@ -3,6 +3,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Business = require('../models/BusinessModel');
+const User = require('../models/UserModel');
 const Refreshkey = require('../models/RefreshkeyModel');
 const { Client } = require('@googlemaps/google-maps-services-js');
 const generatedCodes = require('../seeders/generatedCodes');
@@ -18,8 +19,9 @@ const businessController = {
       }
 
       const businessExists = await Business.findOne({ where: { email } });
+      const userExists = await User.findOne({ where: { email } });
 
-      if (businessExists) {
+      if (businessExists || userExists) {
         res.status(400);
         throw new Error('business already exists');
       }
@@ -27,7 +29,7 @@ const businessController = {
       // res.locals.email = email;
       // res.locals.password = password;
       // return next();
-      res.json({ message: 'initial register complete' });
+      res.status(200).json({ message: 'initial register complete' });
     } catch (err) {
       return next(err);
     }

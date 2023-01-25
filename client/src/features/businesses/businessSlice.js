@@ -16,6 +16,7 @@ export const initialRegisterBusiness = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(businessURL, userData);
+      console.log('RESPONSE.DATA ', response.data);
       if (response.data) {
         return response.data;
       }

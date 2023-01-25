@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterBusiness = () => {
   const { selectedBusiness } = useSelector((state) => state.businesses);
@@ -13,6 +14,11 @@ const RegisterBusiness = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('woohoo');
+  };
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -62,4 +68,4 @@ const RegisterBusiness = () => {
   );
 };
 
-export default RegisterBusiness; 
+export default RegisterBusiness;
