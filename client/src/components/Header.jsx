@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { logout, reset } from '../features/auth/authSlice';
-import GoogleAuth from './GoogleAuth';
+// import GoogleAuth from './GoogleAuth';
 import RegisterModal from './RegisterModal';
 
 const Header = ({ setShowLogin, setShowReg }) => {
@@ -66,7 +66,6 @@ const Header = ({ setShowLogin, setShowReg }) => {
             </li>
             <div className="userpic">
               <img src={user.picture}></img>
-              <h1>{`Let's get Poppin' ${user.given_name} ${user.family_name}`}</h1>
             </div>
           </>
         ) : (
