@@ -1,235 +1,86 @@
-//*** BCRYPT AND JWT CONSTANTS: AUTHENTICATION
+const User = require('../models/UserModel.js');
+const { StatusCodes } = require('http-status-codes');
 
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-// const User = require('../models/UserModel');
-const User = require('../models/UserModel');
+const register = async (req, res) => {
+  const { email, password } = req.body;
+  // if(!username){
+  //   res.status(400);
+  //   throw new Error('Please provide a username');
+  // }
+  if(!email || !password){
+    throw new Error('Email and password are required');
+  }
 
-const Refreshkey = require('../models/RefreshkeyModel');
+  const userExists = await User.findOne({email});
 
-const userController = {
-  registerUser: async (req, res, next) => {
-    const { email, password } = req.body;
-    try {
-      if (!password || !email) {
-        res.status(400);
-        throw new Error('Please add all required fields');
-      }
+  if(userExists){
+    res.status(400);
+    throw new Error('Email already in use');
+  }
 
-      const userExists = await User.findOne({ where: { email } });
-
-      if (userExists) {
-        res.status(400);
-        throw new Error('user already exists');
-      }
-
-      const hashedPassword = await bcrypt.hash(password, 10); // 10 is the *salt*
-
-      const newUser = await User.create({
-        username: 'Jakejasontimandrewfelix',
-        password: hashedPassword,
-        email,
-        location: 'New york',
-      });
-
-      //TESTING ALL THAT COMES FROM USER
-      // res.status(200).json(newUser);
-
-      res.status(200).json({
-        id: newUser.id,
-        username: 'Jakejasontimandrewfelix',
-        email,
-        location: newUser.location,
-        token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
-          expiresIn: '20m',
-        }),
-      });
-    } catch (err) {
-      console.log(err);
-      return next(err);
-    }
-  },
-
-  loginUser: async (req, res, next) => {
-    const { email, password } = req.body;
-
-    try {
-      if (!email || !password) {
-        res.status(400);
-        throw new Error('please enter all required fields');
-      }
-
-      const userExists = await User.findOne({ where: { email } });
-
-      if (!userExists) {
-        res.status(500);
-        throw new Error('user does not exist');
-      }
-
-      if (await bcrypt.compare(password, userExists.password)) {
-        const tokens = {
-          token: jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '20m',
-          }),
-          refreshToken: jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET),
-        };
-
-        // Refreshkey.create({ email, refreshtoken: tokens.refreshToken });
-
-        // 2. write a function to store the email and the token <-- Completed
-
-        //added tokens to cookies so it will remain on the user
-        res.cookie = tokens;
-        //MAKE SURE TO GRAB TOKENS.TOKEN
-        res.status(200).json({
-          id: userExists.id,
-          email,
-          username: 'jake',
-          location: userExists.location,
-          tokens,
-        });
-
-        //added next to pas tokens
-        next();
-      } else {
-        res.status(400);
-        throw new Error('Email and Password combination is invalid');
-      }
-    } catch (err) {
-      return next(err);
-    }
-  },
-
-  OauthLoginVerifyGoogleToken: async(req, res) => {
-    const { credential } = req.body
-    try{
-      const ticket = await client.verifyIdToken({
-      //JWT and client ID needed
-      idToken: credential.token,
-      audience: GOOGLE_CLIENT_ID,
-      });
-      return { payload: ticket.getPayload() };
-    } catch (error) {
-      return { error: "Invalid user detected. Please try again" };
-    }
-  }, 
-
-
-  getAllUsers: async (_, res) => {
-    try {
-      const users = await User.findAll();
-      res.status(200).json(users);
-    } catch (err) {
-      const statusCode = res.statusCode ? res.statusCode : 500;
-      res.status(statusCode).json({
-        message: err.message ? err.message : 'An unknown error occured',
-      });
-    }
-  },
-
-  checkAccessToken: async (req, res, next) => {
-    try {
-      if (res.cookie) {
-        if (
-          !jwr.verify(res.cookie.accessToken, process.env.ACCESS_TOKEN_SECRET)
-        ) {
-          const checkForRefreshToken = await Refreshkey.findOne({
-            where: { email },
-          });
-
-          if (checkForRefreshToken) {
-            const tokens = {
-              accessToken: jwt.sign(
-                { email },
-                process.env.ACCESS_TOKEN_SECRET,
-                {
-                  expiresIn: '20m',
-                }
-              ),
-              refreshToken: jwt.sign(
-                { email },
-                process.env.REFRESH_TOKEN_SECRET
-              ),
-            };
-
-            const deleteUser = Refreshkey.findOne({ where: { email } });
-            deleteUser.destroy;
-
-            Refreshkey.create({
-              email,
-              refreshtoken: tokens.refreshToken,
-            });
-
-            // send the user back as json an accesstoken and refreshtoken
-            res.cookie = tokens;
-            return next();
-          }
-        }
-      }
-    } catch (err) {
-      console.log(err);
-      return next(err);
-    }
-  },
-
-  deleteUser: async (req, res, next) => {
-    try {
-      const userToDelete = await User.destroy({ where: { id: req.params.id } });
-      console.log('user removed');
-      res.status(200).json({ message: 'user removed' });
-    } catch (err) {
-      console.log(err, 'error in deleteUser');
-      return next(err);
-    }
-  },
-  // checkAccessToken: async (req, res, next) => {
-  //   try {
-  //     if (res.cookie) {
-  //       if (
-  //         !jwr.verify(res.cookie.accessToken, process.env.ACCESS_TOKEN_SECRET)
-  //       ) {
-  //         const checkForRefreshToken = await Refreshkey.findOne({
-  //           where: { email },
-  //         });
-
-  //         if (checkForRefreshToken) {
-  //           const tokens = {
-  //             accessToken: jwt.sign(
-  //               { email },
-  //               process.env.ACCESS_TOKEN_SECRET,
-  //               {
-  //                 expiresIn: '20m',
-  //               }
-  //             ),
-  //             refreshToken: jwt.sign(
-  //               { email },
-  //               process.env.REFRESH_TOKEN_SECRET
-  //             ),
-  //           };
-
-  //           const deleteUser = Refreshkey.findOne({ where: { email } });
-  //           deleteUser.destroy;
-
-  //           Refreshkey.create({
-  //             email,
-  //             refreshtoken: tokens.refreshToken,
-  //           });
-
-  //           // send the user back as json an accesstoken and refreshtoken
-  //           res.cookie = tokens;
-  //           return next();
-  //         }
-  //       }
-  //     }
-  //   } catch (err) {
-  //     const statusCode = res.statusCode ? res.statusCode : 500;
-  //     res.status(statusCode).json({
-  //       message: err.message
-  //         ? err.message
-  //         : 'Error in the checkAccessToken Function in UserController',
-  //     });
-  //   }
-  // },
+  const newUser = await User.create({ email, password});
+  const token = newUser.createJWT();
+  const user = { email: newUser.email};
+  res.status(StatusCodes.CREATED).json({user, token});
 };
 
-module.exports = userController;
+// User login
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    res.status(400);
+    throw new Error('Email and password are required');
+  }
+
+  const user = await User.findOne({ email }).select('+password');
+  if (!user) {
+    res.status(500);
+    throw new Error('Invalid credentials');
+  }
+
+  const isPaswordCorrect = await user.comparePasswords(password);
+  if (!isPaswordCorrect) {
+    res.status(500);
+    throw new Error('Invalid credentials');
+  }
+
+  const token = user.createJWT();
+  const userData = { email: user.email };
+  res.status(StatusCodes.OK).json({ user: userData, token });
+}
+
+//Google Oauth token
+const OauthLoginVerifyGoogleToken = async(req, res) => {
+  const { credential } = req.body
+
+  try{
+    const ticket = await client.verifyIdToken({
+    //JWT and client ID needed
+    idToken: credential.token,
+    audience: GOOGLE_CLIENT_ID,
+    });
+    return { payload: ticket.getPayload() };
+  } catch (error) {
+    return { error: "Invalid user detected. Please try again" };
+  }
+}
+
+// Update user 
+const updateUser = async (req, res) => {
+  res.send('Update User');
+};
+
+// Delete user
+const deleteUser = async (req, res, next) => {
+  try {
+    const userToDelete = await User.destroy({ id: req.params.id });
+    console.log('user removed');
+    res.status(200).json({ message: 'user removed' });
+  } catch (err) {
+    console.log(err, 'error in deleteUser');
+    return next(err);
+  }
+}
+
+module.exports = { register, login, OauthLoginVerifyGoogleToken, updateUser, deleteUser };

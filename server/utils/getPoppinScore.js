@@ -24,4 +24,4 @@ function getPoppinScore(poppinPercentage) {
   return updatedPoppinScore;
 }
 
-module.exports = getPoppinScore;
+module.exports = { getPoppinScore };

@@ -3,7 +3,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login, reset } from '../features/auth/authSlice';
-// import GoogleAuth from './GoogleAuth';
+import GoogleAuth from './GoogleAuth';
 // import Google from '../assets/images/google.png';
 // import Github from '../assets/images/github.png';
 

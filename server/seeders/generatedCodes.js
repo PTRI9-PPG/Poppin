@@ -158,4 +158,4 @@ const generatedCodes = [
   'jason',
 ];
 
-module.exports = generatedCodes;
+module.exports = { generatedCodes };

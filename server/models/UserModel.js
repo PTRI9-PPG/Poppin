@@ -1,38 +1,47 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const { Schema, model } = require('mongoose');
+// to check the validity or syntactical correctness of a fragment of code or document
+const validator = require('validator');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-//By default, Sequelize automatically adds the primary key attribute id to every model when no primary key has been defined manually.
-const User = db.define('user', {
-  username: {
-    type: Sequelize.STRING,
-  },
-  password: {
-    type: Sequelize.STRING,
-  },
+const UserSchema = new Schema({
   email: {
-    type: Sequelize.STRING,
+    type: String,
+    required: [true, 'Email is required'],
+    validate: {
+      validator: validator.isEmail,
+      message: 'Email is not valid',
+    },
     unique: true,
   },
-  location: {
-    type: Sequelize.STRING,
+  password: {
+    type: String,
+    required: [true, 'Password is required'],
+    minLength: 6,
+    maxLength: 30,
+    select: false,
   },
-
-  // createdat: {
-  //   type: Sequelize.DATE,
-  // },
-  // updatedat: {
-  //   type: Sequelize.DATE,
-  // },
 });
 
-// const GoogleUser = db.define('user', {
-//   username: {
-//     type: Sequelize.STRING,
-//   },
-//   googleId: {
-//     type: Sequelize.STRING,
-//   },
-// });
+UserSchema.methods.createJWT = function () {
+  const token = jwt.sign(
+    {
+      userId: this._id,
+    },
+    process.env.JWT_SECRET_KEY,
+    { expiresIn: process.env.JWT_TOKEN_EXPIRATION_TIME }
+  );
+  return token;
+};
 
-// module.exports = GoogleUser;
-module.exports = User;
+UserSchema.methods.comparePasswords = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+UserSchema.pre('save', async function () {
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+module.exports = model('User', UserSchema);
+

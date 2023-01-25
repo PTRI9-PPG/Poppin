@@ -1,57 +1,112 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const { Schema, model } = require('mongoose');
+// to check the validity or syntactical correctness of a fragment of code or document
+const validator = require('validator');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-//By default, Sequelize automatically adds the primary key attribute id to every model when no primary key has been defined manually.
-const Business = db.define('business', {
-  username: {
-    type: Sequelize.STRING,
+const BusinessSchema = new Schema ({
+  username:{
+    type: String,
+    required: [true, 'Please provide a username'],
+    minLength: 3,
+    maxLength: 30,
+    trim: true,
   },
-  businessname: {
-    type: Sequelize.STRING,
-  },
-  password: {
-    type: Sequelize.STRING,
+  businessname:{
+    type: String,
+    required: [true, 'Please provide a business name'],
+    minLength: 3,
+    maxLength: 30,
+    trim: true,
   },
   email: {
-    type: Sequelize.STRING,
+    type: String,
+    required: [true, 'Email is required'],
+    validate: {
+      validator: validator.isEmail,
+      message: 'Email is not valid',
+    },
     unique: true,
   },
+  password: {
+    type: String,
+    required: [true, 'Password is required'],
+    minLength: 6,
+    maxLength: 30,
+    select: false,
+  },
   poppinscore: {
-    type: Sequelize.INTEGER,
+    type: Number,
+    validate: {
+      validator: Number.isInteger,
+      message: 'Number is not an integer value',
+    },
   },
   maxcapacity: {
-    type: Sequelize.INTEGER,
+    type: Number,
+    validate: {
+      validator: Number.isInteger,
+      message: 'Number is not an integer value',
+    },
   },
   currentcapacity: {
-    type: Sequelize.INTEGER,
+    type: Number,
+    validate: {
+      validator: Number.isInteger,
+      message: 'Number is not an integer value',
+    },
   },
   location: {
-    type: Sequelize.STRING,
+    type: String,
   },
   latitude: {
-    type: Sequelize.FLOAT,
+    type: Number,
   },
   longitude: {
-    type: Sequelize.FLOAT,
+    type: Number,
   },
   image: {
-    type: Sequelize.STRING,
+    type: String,
   },
   phonenumber: {
-    type: Sequelize.INTEGER,
+    type: Number,
+    validate: {
+      validator: Number.isInteger,
+      message: 'Number is not an integer value',
+    },
   },
   incentive: {
-    type: Sequelize.STRING,
+    type: String,
   },
   currentcode: {
-    type: Sequelize.STRING,
+    type: String,
   },
-  codestouse: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+  codetouse:{
+    type: Array,
   },
   storedcodes: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+    type: Array,
   },
 });
 
-module.exports = Business;
+BusinessSchema.methods.createJWT = function () {
+  const token = jwt.sign(
+    {
+      userId: this._id,
+    },
+    process.env.JWT_SECRET_KEY,
+    { expiresIn: process.env.JWT_TOKEN_EXPIRATION_TIME }
+  );
+  return token;
+};
+
+BusinessSchema.methods.comparePasswords = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+BusinessSchema.pre('save', async function () {
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+module.exports = model('Business', BusinessSchema);
