@@ -23,13 +23,9 @@ const LandingPage = () => {
       <div
         className="landingPage"
         style={{
-<<<<<<< HEAD
           filter:
             showLogin || showReg || showRegBusiness ? 'blur(5px)' : 'none',
-=======
-          filter: showLogin || showReg ? 'blur(5px)' : 'none',
-          opacity: showLogin || showReg ? '.7' : '1',
->>>>>>> dev
+          opacity: showLogin || showReg || showRegBusiness ? '.7' : '1',
           overflow: 'hidden',
         }}
       >
