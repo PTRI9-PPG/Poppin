@@ -9,6 +9,29 @@ const generatedCodes = require('../seeders/generatedCodes');
 const getPoppinScore = require('../utils/getPoppinScore');
 
 const businessController = {
+  initialRegisterBusiness: async (req, res, next) => {
+    const { email, password } = req.body;
+    try {
+      if (!email || !password) {
+        res.status(400);
+        throw new Error('please enter all fields');
+      }
+
+      const businessExists = Business.findOne({ where: { email } });
+
+      if (businessExists) {
+        res.status(400);
+        throw new Error('business already exists');
+      }
+
+      // res.locals.email = email;
+      // res.locals.password = password;
+      // return next();
+      res.json({ message: 'initial register complete' });
+    } catch (err) {
+      return next(err);
+    }
+  },
   registerBusiness: async (req, res, next) => {
     const {
       username,

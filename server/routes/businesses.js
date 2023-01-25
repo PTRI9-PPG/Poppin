@@ -5,7 +5,8 @@ const businessController = require('../controllers/businessController');
 
 router.get('/', businessController.getAllBusinesses);
 router.post('/login', businessController.loginBusiness);
-router.post('/', businessController.registerBusiness);
+router.post('/', businessController.initialRegisterBusiness);
+router.post('/register', businessController.registerBusiness);
 router.put('/:id', businessController.updateBusiness);
 router.post('/checkin/:id', businessController.checkDealCode);
 router.delete('/:id', businessController.deleteBusiness);
