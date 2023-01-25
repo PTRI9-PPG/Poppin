@@ -123,7 +123,6 @@ const Dashboard = () => {
     const service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, (res, stat) => {
       if (stat === google.maps.places.PlacesServiceStatus.OK) {
-        console.log(res);
         setBars(res);
       }
     });
@@ -241,6 +240,7 @@ const Dashboard = () => {
             <CardContainer
               setShowCheckinModal={setShowCheckinModal}
               showCheckinModal={showCheckinModal}
+              bars={bars}
             />
           ) : null}
         </main>
