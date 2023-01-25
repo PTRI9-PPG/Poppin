@@ -107,7 +107,7 @@ export const businessSlice = createSlice({
       .addCase(initialRegisterBusiness.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.message = action.payload;
+        state.selectedBusiness = action.payload;
       })
       .addCase(initialRegisterBusiness.rejected, (state, action) => {
         state.isLoading = false;

@@ -3,9 +3,9 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { register, reset } from '../features/auth/authSlice';
+import { reset as businessReset } from '../features/businesses/businessSlice';
 import {
   initialRegisterBusiness,
-  setSelectedBusiness,
 } from '../features/businesses/businessSlice';
 
 function RegisterModal({ setShowReg }) {
@@ -16,7 +16,6 @@ function RegisterModal({ setShowReg }) {
   });
 
   const [isChecked, setIsChecked] = useState(false);
-  console.log('INITIAL IS CHECKED', isChecked);
 
   const { email, password, password2 } = formData;
 
@@ -24,9 +23,12 @@ function RegisterModal({ setShowReg }) {
     (state) => state.auth
   );
 
-  const { isSuccess: businessSuccess, selectedBusiness } = useSelector(
-    (state) => state.businesses
-  );
+  const {
+    isSuccess: businessSuccess,
+    isError: businessError,
+    message: businessMessage,
+    selectedBusiness,
+  } = useSelector((state) => state.businesses);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,6 +36,9 @@ function RegisterModal({ setShowReg }) {
   useEffect(() => {
     if (isError) {
       window.alert(message);
+    }
+    if (businessError) {
+      window.alert(businessMessage);
     }
     if (isSuccess || user) {
       navigate('/home');
@@ -43,7 +48,17 @@ function RegisterModal({ setShowReg }) {
       navigate('/registerBusiness');
     }
     dispatch(reset());
-  }, [isError, isSuccess, message, user, navigate, dispatch, businessSuccess]);
+    dispatch(businessReset());
+  }, [
+    isError,
+    isSuccess,
+    message,
+    user,
+    navigate,
+    dispatch,
+    businessSuccess,
+    businessError,
+  ]);
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -62,8 +77,6 @@ function RegisterModal({ setShowReg }) {
       dispatch(register(userInfo));
     } else {
       dispatch(initialRegisterBusiness(userInfo));
-      dispatch(setSelectedBusiness(userInfo));
-      console.log('selected business ', selectedBusiness);
     }
   };
 

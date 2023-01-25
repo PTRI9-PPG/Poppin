@@ -23,13 +23,13 @@ const businessController = {
 
       if (businessExists || userExists) {
         res.status(400);
-        throw new Error('business already exists');
+        throw new Error('user or business already exists');
       }
 
       // res.locals.email = email;
       // res.locals.password = password;
       // return next();
-      res.status(200).json({ message: 'initial register complete' });
+      res.status(200).json({ email, password });
     } catch (err) {
       return next(err);
     }
@@ -295,6 +295,7 @@ const businessController = {
       const businesses = await Business.findAll({
         attributes: [
           'id',
+          'email',
           'businessname',
           'poppinscore',
           'maxcapacity',
