@@ -16,7 +16,8 @@ const LandingPage = () => {
       <div
         className='landingPage'
         style={{
-          filter: showLogin || showReg || showRegBusiness ? 'blur(5px)' : 'none',
+          filter:
+            showLogin || showReg || showRegBusiness ? 'blur(5px)' : 'none',
           opacity: showLogin || showReg || showRegBusiness ? '.7' : '1',
           overflow: 'hidden',
         }}
@@ -30,7 +31,7 @@ const LandingPage = () => {
           className='parallax'
           style={{ backgroundImage: 'url(' + bar + ')' }}
         />
-        <ul className='cards' ref={ref}>
+        <ul className='cards'>
           <li className='card'>
             <div>
               <IoAccessibility />
