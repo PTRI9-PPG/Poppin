@@ -6,12 +6,8 @@ import { useSelector } from 'react-redux';
 const BusinessDashboard = () => {
   const { businessUser } = useSelector((state) => state.businesses);
 
-
-
-
-  return(
-
-  )
+  console.log('BUSINESSUSER ', businessUser);
+  return <h1>UNDER CONSTRUCTION</h1>;
 };
 
 export default BusinessDashboard;

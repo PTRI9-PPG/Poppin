@@ -123,12 +123,6 @@ function RegisterModal({ setShowReg }) {
             checked={isChecked}
             onChange={(e) => {
               setIsChecked(!isChecked);
-              // if (isChecked) {
-              //   setIsChecked(false);
-              // } else {
-              //   setIsChecked(true);
-              // }
-              // console.log(isChecked);
             }}
           />
           <p>Business?</p>

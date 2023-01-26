@@ -25,25 +25,33 @@ const RegisterBusiness = () => {
       window.alert(message);
     }
     dispatch(reset());
-  }, [isSuccess, businessUser, isError]);
-  console.log('selected business ', selectedBusiness);
+  }, [dispatch, isSuccess, businessUser, isError]);
+  // console.log('selected business ', selectedBusiness);
   const [businessInfo, setBusinessInfo] = useState({
-    businessName: '',
-    businessImage: '',
-    phoneNumber: '',
-    location: '',
+    businessname: '',
+    image: '',
+    phonenumber: '',
+    // location: '',
   });
+
+  const { businessname, image, phonenumber, location } = businessInfo;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('woohoo');
-
-    const businessData = { businessName, businessImage, phoneNumber, location };
+    const businessData = {
+      email: selectedBusiness.email,
+      password: selectedBusiness.password,
+      businessname,
+      image,
+      phonenumber,
+      // location,
+    };
+    console.log('businessDATA', businessData);
     dispatch(registerBusiness(businessData));
   };
 
   const onChange = (e) => {
-    setFormData((prev) => ({
+    setBusinessInfo((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -70,37 +78,41 @@ const RegisterBusiness = () => {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        type='businessName'
-        id='businessName'
-        name='businessName'
-        placeholder='businessName'
+        type='text'
+        id='businessname'
+        name='businessname'
+        placeholder='businessname'
         required={true}
+        value={businessname}
         onChange={onChange}
       />
       <input
-        type='businessImage'
-        id='businessImage'
-        name='businessImage'
+        type='text'
+        id='image'
+        name='image'
         placeholder='Image URL'
         required={true}
+        value={image}
         onChange={onChange}
       />
       <input
-        type='phoneNumber'
-        id='phoneNumber'
-        name='phoneNumber'
-        placeholder='phoneNumber'
+        type='text'
+        id='phonenumber'
+        name='phonenumber'
+        placeholder='phonenumber'
         required={true}
+        value={phonenumber}
         onChange={onChange}
       />
-      <input
-        type='location'
+      {/* <input
+        type='text'
         id='location'
         name='location'
         placeholder='location'
         required={true}
+        value={location}
         onChange={onChange}
-      />
+      /> */}
       <button type='submit' className='button'>
         Submit
       </button>

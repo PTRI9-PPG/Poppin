@@ -5,6 +5,7 @@ import Checkin from './pages/Checkin';
 import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
 import RegisterBusiness from './pages/RegisterBusiness';
+import BusinessDashboard from './pages/BusinessDashboard';
 
 const App = () => {
   const { user } = useSelector((state) => state.auth);
@@ -19,7 +20,7 @@ const App = () => {
           {user && <Route path='/home' element={<Dashboard />} />}
           {user && <Route path='/checkin' element={<Checkin />} />} */}
 
-          <Route path='/businessMain' element={<BusinessDashboard />} />
+          <Route path='/businessDashboard' element={<BusinessDashboard />} />
           <Route path='/registerBusiness' element={<RegisterBusiness />} />
           <Route path='/home' element={<Dashboard />} />
           <Route path='/checkin' element={<Checkin />} />
