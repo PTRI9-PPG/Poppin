@@ -24,15 +24,15 @@ const CheckinDetails = () => {
   //below, data needs to be mapped to multiple cards and rendered for each card checked in
   return (
     <>
-      <div>
+      <div className='checkInContainer'>
         {!checkedIn ? (
           <h3>You are not currently checked in anywhere...</h3>
         ) : (
-          <div>
+          <div className='checkInDetail'>
             <h3>Your Current Checkin Details</h3>
             <div>
-              {/* <img src={selectedBusiness?.image} alt='img' /> */}
-              <img src={Fillimg} alt='' />
+              <img src={selectedBusiness?.image} alt='img' />
+              {/* <img src={Fillimg} alt='' /> */}
               <div>{selectedBusiness?.businessname} </div>
               <div>City: </div>
               <div>{selectedBusiness?.location} </div>
@@ -42,27 +42,37 @@ const CheckinDetails = () => {
               <div>
                 <GiChampagneCork
                   color={
-                    selectedBusiness?.poppinscore >= 20 ? '#2d3b46' : '#f1c9ba'
+                    selectedBusiness?.poppinscore >= 20
+                      ? '#f45d5d'
+                      : '#a1ccdcb7'
                   }
                 />
                 <GiChampagneCork
                   color={
-                    selectedBusiness?.poppinscore >= 40 ? '#2d3b46' : '#f1c9ba'
+                    selectedBusiness?.poppinscore >= 40
+                      ? '#f45d5d'
+                      : '#a1ccdcb7'
                   }
                 />
                 <GiChampagneCork
                   color={
-                    selectedBusiness?.poppinscore >= 60 ? '#2d3b46' : '#f1c9ba'
+                    selectedBusiness?.poppinscore >= 60
+                      ? '#f45d5d'
+                      : '#a1ccdcb7'
                   }
                 />
                 <GiChampagneCork
                   color={
-                    selectedBusiness?.poppinscore >= 80 ? '#2d3b46' : '#f1c9ba'
+                    selectedBusiness?.poppinscore >= 80
+                      ? '#f45d5d'
+                      : '#a1ccdcb7'
                   }
                 />
                 <GiChampagneCork
                   color={
-                    selectedBusiness?.poppinscore >= 100 ? '#2d3b46' : '#f1c9ba'
+                    selectedBusiness?.poppinscore >= 100
+                      ? '#f45d5d'
+                      : '#a1ccdcb7'
                   }
                 />
               </div>

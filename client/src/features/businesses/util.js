@@ -1,0 +1,23 @@
+const barPromotions = [
+  'Happy Hour specials all night!',
+  '2-for-1 drinks on Wednesdays!',
+  'Live music and discounted drinks on Fridays!',
+  'Free shots for every touchdown during the game!',
+  'Half-priced cocktails for ladies on Thursdays!',
+  'All-you-can-drink for $25 on Saturdays!',
+  'Buy one drink, get one free on Mondays!',
+  'Industry Night specials for industry professionals on Tuesdays!',
+  'Specialty drink menu and discounted wine on Wednesdays!',
+  'College Night specials for students on Thursdays!',
+  'Buy one get one free beer on Sundays!',
+  'Tequila Tuesday specials',
+  'Whiskey Wednesday discounts',
+  'Thirsty Thursday deals',
+  'Fizz Friday specials',
+  'Sip and Savor Saturday deals',
+  'Sangria Sunday specials',
+  'Mojito Monday deals',
+  'Tropical Tuesday discounts',
+  'Wine Wednesday specials',
+];
+export default barPromotions;
