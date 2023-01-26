@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 const businessURL = '/businesses/';
+const businessUser = JSON.parse(localStorage.getItem('businessUser'));
 
 const initialState = {
+  businessUser: businessUser ? businessUser : null,
   businesses: [],
   isLoading: false,
   isError: false,
@@ -18,6 +20,23 @@ export const initialRegisterBusiness = createAsyncThunk(
       const response = await axios.post(businessURL, userData);
       console.log('RESPONSE.DATA ', response.data);
       if (response.data) {
+        return response.data;
+      }
+    } catch (err) {
+      const message = err.response?.data.message || err.toString();
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const registerBusiness = createAsyncThunk(
+  'business/registerBusiness',
+  async (businessData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(businessURL + 'register', businessData);
+      console.log('RESPONSE DATA ', response.data);
+      if (response.data) {
+        localStorage.setItem('businessUser', JSON.stringify(response.data));
         return response.data;
       }
     } catch (err) {
@@ -98,6 +117,9 @@ export const businessSlice = createSlice({
     setSelectedBusiness: (state, action) => {
       state.selectedBusiness = action.payload;
     },
+    setBusinessUser: (state, action) => {
+      state.businessUser = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -113,6 +135,19 @@ export const businessSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+      })
+      .addCase(registerBusiness.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(registerBusiness.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.businessUser = action.payload;
+      })
+      .addCase(registerBusiness.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.paylod;
       })
       .addCase(getAllBusinesses.pending, (state) => {
         state.isLoading = true;
@@ -166,7 +201,11 @@ export const businessSlice = createSlice({
   },
 });
 
-export const { reset, resetSelectedBusiness, setSelectedBusiness } =
-  businessSlice.actions;
+export const {
+  reset,
+  resetSelectedBusiness,
+  setSelectedBusiness,
+  setBusinessUser,
+} = businessSlice.actions;
 
 export default businessSlice.reducer;

@@ -19,6 +19,7 @@ const App = () => {
           {user && <Route path='/home' element={<Dashboard />} />}
           {user && <Route path='/checkin' element={<Checkin />} />} */}
 
+          <Route path='/businessMain' element={<BusinessDashboard />} />
           <Route path='/registerBusiness' element={<RegisterBusiness />} />
           <Route path='/home' element={<Dashboard />} />
           <Route path='/checkin' element={<Checkin />} />
