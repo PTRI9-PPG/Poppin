@@ -11,6 +11,22 @@ const initialState = {
   selectedBusiness: null,
 };
 
+export const initialRegisterBusiness = createAsyncThunk(
+  'business/initialRegister',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(businessURL, userData);
+      console.log('RESPONSE.DATA ', response.data);
+      if (response.data) {
+        return response.data;
+      }
+    } catch (err) {
+      const message = err.response?.data.message || err.toString();
+      return rejectWithValue(message);
+    }
+  }
+);
+
 export const getAllBusinesses = createAsyncThunk(
   'business/getAll',
   async (_, thunkAPI) => {
@@ -85,6 +101,19 @@ export const businessSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(initialRegisterBusiness.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(initialRegisterBusiness.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.selectedBusiness = action.payload;
+      })
+      .addCase(initialRegisterBusiness.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
       .addCase(getAllBusinesses.pending, (state) => {
         state.isLoading = true;
       })

@@ -3,6 +3,10 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { register, reset } from '../features/auth/authSlice';
+import { reset as businessReset } from '../features/businesses/businessSlice';
+import {
+  initialRegisterBusiness,
+} from '../features/businesses/businessSlice';
 
 function RegisterModal({ setShowReg }) {
   const [formData, setFormData] = useState({
@@ -11,11 +15,20 @@ function RegisterModal({ setShowReg }) {
     password2: '',
   });
 
+  const [isChecked, setIsChecked] = useState(false);
+
   const { email, password, password2 } = formData;
 
   const { isError, isSuccess, message, user } = useSelector(
-    (state) => state.auth,
+    (state) => state.auth
   );
+
+  const {
+    isSuccess: businessSuccess,
+    isError: businessError,
+    message: businessMessage,
+    selectedBusiness,
+  } = useSelector((state) => state.businesses);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,11 +37,28 @@ function RegisterModal({ setShowReg }) {
     if (isError) {
       window.alert(message);
     }
+    if (businessError) {
+      window.alert(businessMessage);
+    }
     if (isSuccess || user) {
       navigate('/home');
     }
+
+    if (businessSuccess) {
+      navigate('/registerBusiness');
+    }
     dispatch(reset());
-  }, [isError, isSuccess, message, user, navigate, dispatch]);
+    dispatch(businessReset());
+  }, [
+    isError,
+    isSuccess,
+    message,
+    user,
+    navigate,
+    dispatch,
+    businessSuccess,
+    businessError,
+  ]);
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -43,7 +73,11 @@ function RegisterModal({ setShowReg }) {
       window.alert('passwords do not match');
     }
     const userInfo = { email, password };
-    dispatch(register(userInfo));
+    if (!isChecked) {
+      dispatch(register(userInfo));
+    } else {
+      dispatch(initialRegisterBusiness(userInfo));
+    }
   };
 
   const handleClick = () => {
@@ -85,6 +119,20 @@ function RegisterModal({ setShowReg }) {
           <button type='submit' className='button'>
             Submit
           </button>
+          <input
+            type='checkbox'
+            checked={isChecked}
+            onChange={(e) => {
+              setIsChecked(!isChecked);
+              // if (isChecked) {
+              //   setIsChecked(false);
+              // } else {
+              //   setIsChecked(true);
+              // }
+              // console.log(isChecked);
+            }}
+          />
+          <p>Business?</p>
         </form>
       </div>
     </>

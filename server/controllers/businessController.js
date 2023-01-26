@@ -3,12 +3,37 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Business = require('../models/BusinessModel');
+const User = require('../models/UserModel');
 const Refreshkey = require('../models/RefreshkeyModel');
 const { Client } = require('@googlemaps/google-maps-services-js');
 const generatedCodes = require('../seeders/generatedCodes');
 const getPoppinScore = require('../utils/getPoppinScore');
 
 const businessController = {
+  initialRegisterBusiness: async (req, res, next) => {
+    const { email, password } = req.body;
+    try {
+      if (!email || !password) {
+        res.status(400);
+        throw new Error('please enter all fields');
+      }
+
+      const businessExists = await Business.findOne({ where: { email } });
+      const userExists = await User.findOne({ where: { email } });
+
+      if (businessExists || userExists) {
+        res.status(400);
+        throw new Error('user or business already exists');
+      }
+
+      // res.locals.email = email;
+      // res.locals.password = password;
+      // return next();
+      res.status(200).json({ email, password });
+    } catch (err) {
+      return next(err);
+    }
+  },
   registerBusiness: async (req, res, next) => {
     const {
       username,
@@ -62,9 +87,9 @@ const businessController = {
         password,
         email,
         location,
-        poppinscore,
-        maxcapacity,
-        currentcapacity,
+        poppinscore: 100,
+        maxcapacity: 100,
+        currentcapacity: 100,
         latitude,
         longitude,
         image,
@@ -270,6 +295,7 @@ const businessController = {
       const businesses = await Business.findAll({
         attributes: [
           'id',
+          'email',
           'businessname',
           'poppinscore',
           'maxcapacity',
