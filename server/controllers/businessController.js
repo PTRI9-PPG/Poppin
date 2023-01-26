@@ -8,6 +8,7 @@ const Refreshkey = require('../models/RefreshkeyModel');
 const { Client } = require('@googlemaps/google-maps-services-js');
 const generatedCodes = require('../seeders/generatedCodes');
 const getPoppinScore = require('../utils/getPoppinScore');
+const randomCode = require('../seeders/generatedCodes');
 
 const businessController = {
   initialRegisterBusiness: async (req, res, next) => {
@@ -227,31 +228,30 @@ const businessController = {
   checkDealCode: async (req, res, next) => {
     const { code } = req.body;
     try {
-      const business = await Business.findByPk(req.params.id);
-      const currentcode = business.currentcode;
+      const currentcode = randomCode[Math.floor(Math.random() * randomCode.length)]
       console.log('code from db ==>', currentcode);
       console.log('req.bodycode ==>', code);
       if (code === currentcode) {
         //push current code into database in column storedcodes
-        business.storedcodes.push(currentcode);
-        const codestouse = business.codestouse;
-        const newCode = codestouse.pop();
+        // business.storedcodes.push(currentcode);
+        // const codestouse = business.codestouse;
+        // const newCode = codestouse.pop();  
         //set currentcode to new code in db
-        await Business.update(
-          {
-            currentcode: newCode,
-            codestouse: codestouse,
-            storedcodes: business.storedcodes,
-          },
-          {
-            where: { id: req.params.id },
-          }
-        );
+        // await Business.update(
+        //   {
+        //     currentcode: newCode,
+        //     codestouse: codestouse,
+        //     storedcodes: business.storedcodes,
+        //   },
+        //   {
+        //     where: { id: req.params.id },
+        //   }
+        // );
         res.status(200).json({
           message: 'Code matched, new code generated',
-          nextCode: newCode,
-          codestouse: codestouse,
-          storedcodes: business.storedcodes,
+          // nextCode: newCode,
+          // codestouse: codestouse,
+          // storedcodes: business.storedcodes,
         });
       } else {
         res.status(400);
@@ -338,11 +338,11 @@ const businessController = {
                 process.env.ACCESS_TOKEN_SECRET,
                 {
                   expiresIn: '20m',
-                }
+                },
               ),
               refreshToken: jwt.sign(
                 { email },
-                process.env.REFRESH_TOKEN_SECRET
+                process.env.REFRESH_TOKEN_SECRET,
               ),
             };
 

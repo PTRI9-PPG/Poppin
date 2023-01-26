@@ -23,15 +23,12 @@ const Dashboard = () => {
   // const [location, setLocation] = useState(null);
   const [map, setMap] = useState(null);
   const [searchBox, setSearchBox] = useState(null);
-  const [checkInPage, setCheckInPage] = useState(false);
   const [markers, setMarkers] = useState(null);
   const [searched, setSearched] = useState(false);
   const [showCards, setShowCards] = useState(false);
   const [bars, setBars] = useState([]);
-  const { user } = useSelector((state) => state.auth);
   //show modal for entering checkin code
   const [showCheckinModal, setShowCheckinModal] = useState(false);
-  const navigate = useNavigate();
 
   //Upon rendering, ensure that the map loads with the client's location
   useEffect(() => {}, []);
@@ -123,7 +120,6 @@ const Dashboard = () => {
     const service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, (res, stat) => {
       if (stat === google.maps.places.PlacesServiceStatus.OK) {
-        console.log(res);
         setBars(res);
       }
     });
@@ -241,6 +237,7 @@ const Dashboard = () => {
             <CardContainer
               setShowCheckinModal={setShowCheckinModal}
               showCheckinModal={showCheckinModal}
+              bars={bars}
             />
           ) : null}
         </main>
