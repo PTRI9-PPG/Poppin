@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getAllBusinesses } from '../features/businesses/businessSlice';
 import BusinessCard from './BusinessCard';
 

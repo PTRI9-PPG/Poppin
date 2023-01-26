@@ -23,15 +23,12 @@ const Dashboard = () => {
   // const [location, setLocation] = useState(null);
   const [map, setMap] = useState(null);
   const [searchBox, setSearchBox] = useState(null);
-  const [checkInPage, setCheckInPage] = useState(false);
   const [markers, setMarkers] = useState(null);
   const [searched, setSearched] = useState(false);
   const [showCards, setShowCards] = useState(false);
   const [bars, setBars] = useState([]);
-  const { user } = useSelector((state) => state.auth);
   //show modal for entering checkin code
   const [showCheckinModal, setShowCheckinModal] = useState(false);
-  const navigate = useNavigate();
 
   //Upon rendering, ensure that the map loads with the client's location
   useEffect(() => {}, []);

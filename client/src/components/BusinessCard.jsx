@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { GiChampagneCork } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
 import barPromotions from '../features/businesses/util'
+import { setSelectedBusiness } from '../features/businesses/businessSlice';
+
 
 const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
   const [image, setImage] = useState(null);
