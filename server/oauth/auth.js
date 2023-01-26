@@ -1,79 +1,64 @@
-// const router = require('express').Router();
-// const passport = require('passport');
+const router = require('express').Router();
+const passport = require('passport');
 
-// const CLIENT_URL = "http://localhost:8080/#/home";
+const CLIENT_URL = "http://localhost:8080/#/home";
 
-// router.get("/login/failed", (req, res) => {
-//     res.status(401).json({
-//         success: false,
-//         message: "Not able to login!",
-//     })
-// });
+// Login and Logout Router
+router.get("/login/failed", (req, res) => {
+    res.status(401).json({
+        success: false,
+        message: "Not able to login!",
+    })
+});
 
-// router.get("/login/success", (req, res) => {
-//     if(req.user){
-//         res.status(200).json({
-//             success: true,
-//             message: "Successful login!",
-//             user: req.user,
-//         });
-//     }
-// });
+router.get("/login/success", (req, res) => {
+    if(req.user){
+        res.status(200).json({
+            success: true,
+            message: "Successful login!",
+            user: req.user,
+        });
+    }
+});
 
-// router.get("/logout", (req, res) => {
-//     req.logout();
-//     res.redirect("http://localhost:8080/");
-// });
+router.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("http://localhost:8080/");
+});
 
-// router.get(
-//     '/auth/google', 
-//     passport.authenticate('google', {
-//         scope: ['email', 'profile']
-//     })
-// );
+// Google Router - auth with google (when you click to sign in)
+router.get(
+    '/google',
+    passport.authenticate('google', {
+        scope: ['profile']
+    })
+);
 
-// router.get(
-//     "/google/callback", 
-//     passport.authenticate("google", 
-//     {
-//     successRedirect: CLIENT_URL,
-//     failureRedirect: "/login/failed",    
-//     }
-// ));
+// callback route for google to redirect to 
+router.get(
+    "/google/callback", 
+    passport.authenticate("google", 
+    {
+        successRedirect: CLIENT_URL,
+        failureRedirect: "/login/failed",    
+    }
+));
 
-// router.get(
-//     '/auth/github', 
-//     passport.authenticate('github', {
-//         scope: ['email', 'profile']
-//     })
-// );
+// Github Router
+router.get(
+    '/auth/github', 
+    passport.authenticate('github', {
+        scope: ['email', 'profile']
+    })
+);
 
-// router.get(
-//     "/github/callback", 
-//     passport.authenticate("github", 
-//     {
-//     successRedirect: CLIENT_URL,
-//     failureRedirect: "/login/failed",    
-//     }
-// ));
+router.get(
+    "/github/callback", 
+    passport.authenticate("github", 
+    {
+    successRedirect: CLIENT_URL,
+    failureRedirect: "/login/failed",    
+    }
+));
 
-//auth login
-// router.get('/login', (req, res) => {
-//     res.render('login');
-// });
-
-// //auth logout
-// router.get('logout', (req, res) => {
-//     res.send('logging out');
-// });
-
-// //auth with google
-// router.get('/google', passport.authenticate('google',{
-//     scope: 'profile',
-// }));
-
-// //callback route for google to redirect to
-// router.get('/google/callback', (req, res) => {
-//     res.send('you reached the callback URI')
-// });
-// module.exports = router;
+module.exports = router;

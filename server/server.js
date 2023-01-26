@@ -25,15 +25,32 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/users', userRouter);
 app.use('/businesses', businessRoutes);
 
-app.use(errorHandlerMiddleware);
+//Oauth 
+const cookieSession = require("cookie-session");
+const cors = require('cors');
+const passportSetup = require('./oauth/passport');
+const authRoute = require('./oauth/auth');
+const passport = require('passport');
+
+app.use(cookieSession(
+  {name: "session", keys: ["poppin"], maxAge: 24 * 60 * 60 * 100,}
+));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(
+  cors({
+    origin: "http://localhost:8080",
+    methods: "GET, POST, PUT, DELETE",
+    credentials: true,
+  })
+);
+
+app.use("/auth", authRoute);
 
 //error handler
-// app.use((err, res) => {
-//   const statusCode = res.statusCode ? res.statusCode : 500;
-//   res.status(statusCode).json({
-//     message: err.message ? err.message : 'An unknown error occured',
-//   });
-// });
+app.use(errorHandlerMiddleware);
 
 const start = async () => {
   try {
@@ -50,28 +67,3 @@ const start = async () => {
 
 start();
 
-// Oauth passport
-// const session = require('cookie-session');
-// const passportSetup = require("./Oauth/passport");
-// const authRoute = require("./oauth/auth");
-// const passport = require('passport');
-// const cors = require("cors");
-
-//Oauth server
-// app.use(
-//   cors({
-//     origin: "http://localhost:8080",
-//     methods: "GET, POST, PUT, DELETE",
-//     credentials: true,
-//   })
-// );
-// app.use(cookieSession(
-//   {name: "session",
-//   keys:["poppin"],
-//   maxAge: 24 * 60 * 60 * 100}
-// ));
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-// app.use('/auth', authRoute);

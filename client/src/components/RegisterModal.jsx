@@ -6,13 +6,12 @@ import { register, reset } from '../features/auth/authSlice';
 
 function RegisterModal({ setShowReg }) {
   const [formData, setFormData] = useState({
-    username: '',
     email: '',
     password: '',
     password2: '',
   });
 
-  const {username,  email, password, password2 } = formData;
+  const { email, password, password2 } = formData;
 
   const { isError, isSuccess, message, user } = useSelector(
     (state) => state.auth,
@@ -43,7 +42,7 @@ function RegisterModal({ setShowReg }) {
     if (password !== password2) {
       window.alert('passwords do not match');
     }
-    const userInfo = {username, email,password};
+    const userInfo = { email, password };
     dispatch(register(userInfo));
   };
 

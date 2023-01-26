@@ -3,10 +3,6 @@ const { StatusCodes } = require('http-status-codes');
 
 const register = async (req, res) => {
   const { email, password } = req.body;
-  // if(!username){
-  //   res.status(400);
-  //   throw new Error('Please provide a username');
-  // }
   if(!email || !password){
     throw new Error('Email and password are required');
   }
