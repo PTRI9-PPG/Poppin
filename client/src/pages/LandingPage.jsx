@@ -6,18 +6,11 @@ import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
 import BusinessRegisterModal from '../components/RegisterModal';
 import FootImg from './svg/footer.svg';
-import { useInView } from 'react-intersection-observer';
 
 const LandingPage = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showReg, setShowReg] = useState(false);
   const [showRegBusiness, setShowRegBusiness] = useState(false);
-
-  const [ref, inView] = useInView({
-    /* options */
-    threshold: 0.5, // the amount of the element that needs to be in the viewport to trigger the callback
-  });
-
   return (
     <>
       <div
