@@ -13,7 +13,7 @@ const LandingPage = () => {
   const [showRegBusiness, setShowRegBusiness] = useState(false);
   return (
     <>
-      {/* <div
+      <div
         className='landingPage'
         style={{
           filter:
@@ -24,9 +24,9 @@ const LandingPage = () => {
       >
         <div>
           <Header setShowLogin={setShowLogin} setShowReg={setShowReg} />
-        </div> */}
-      {/* This will render the login and registration modals when clicked (and off when x'ed out) */}
-      {/* <FootImg className='foot' />
+        </div>
+        {/* This will render the login and registration modals when clicked (and off when x'ed out) */}
+        <FootImg className='foot' />
         <div
           className='parallax'
           style={{ backgroundImage: 'url(' + bar + ')' }}
@@ -71,7 +71,7 @@ const LandingPage = () => {
       </div>
 
       {showLogin ? <LoginModal setShowLogin={setShowLogin} /> : null}
-      {showReg ? <RegisterModal setShowReg={setShowReg} /> : null} */}
+      {showReg ? <RegisterModal setShowReg={setShowReg} /> : null}
     </>
   );
 };
