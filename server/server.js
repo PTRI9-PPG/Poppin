@@ -34,37 +34,6 @@ db.authenticate()
 app.use('/users', userRoutes);
 app.use('/businesses', businessRoutes);
 
-//Oauth
-const cookieSession = require('cookie-session');
-const cors = require('cors');
-const passportSetup = require('./oauth/passport');
-const authRoute = require('./oauth/auth');
-const passport = require('passport');
-// app.get('/', (_, res) => {
-//   res.send('<a className="oAuth" href="/auth/google">Google</a>');
-// });
-
-// app.get(
-//   '/auth/google',
-//   passport.authenticate('google', { scope: ['email', 'profile'] }),
-// );
-
-// app.get(
-//   '/google/callback',
-//   passport.authenticate('google', {
-//     successRedirect: '/success',
-//     failureRedirect: '/failure',
-//   }),
-// );
-
-// app.get('/success', (_, res) => {
-//   res.sendFile(path.join(__dirname, 'client/src/pages/Dashboard.jsx'));
-// });
-
-// app.get('/failure', (_, res) => {
-//   res.send('Something went wrong');
-// });
-
 // //catch all route handler
 app.use((_, res) => res.status(404).send('page not found'));
 
