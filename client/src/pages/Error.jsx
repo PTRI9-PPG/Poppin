@@ -45,7 +45,7 @@ const Error = () => {
       </div>
       <span>
         <a href='http://localhost:8080'>
-          Let's go Login
+          Let's go Home
           <svg viewBox='0 0 70 36'>
             <path
               d='M6.9739 30.8153H63.0244C65.5269 30.8152 75.5358 -3.68471
