@@ -39,7 +39,7 @@ const businessController = {
       businessname,
       password,
       email,
-      // location,
+      location,
       // poppinscore,
       // maxcapacity,
       // currentcapacity,
@@ -51,7 +51,7 @@ const businessController = {
     let { latitude, longitude } = req.body;
 
     try {
-      if (!businessname || !password || !email /*|| !location*/) {
+      if (!businessname || !password || !email || !location) {
         res.status(400);
         throw new Error('Please add all required fields');
       }
@@ -85,7 +85,7 @@ const businessController = {
         businessname,
         password: hashedPassword,
         email,
-        location: 'weh',
+        location,
         poppinscore: 100,
         maxcapacity: 100,
         currentcapacity: 100,
@@ -107,7 +107,7 @@ const businessController = {
 
       res.status(200).json({
         id: newBusiness.id,
-        username,
+        username: newBusiness.username,
         email,
         location,
         tokens,
@@ -115,7 +115,7 @@ const businessController = {
         longitude,
         image,
         phonenumber,
-        incentive,
+        incentive: newBusiness.incentive,
         currentcode: newBusiness.currentcode,
         codestouse: newBusiness.codestouse,
         storedcodes: newBusiness.storedcodes,
@@ -168,7 +168,7 @@ const businessController = {
         });
 
         //added next to pas tokens
-        next();
+        // next();
       } else {
         res.status(400);
         throw new Error('Email and Password combination is invalid');

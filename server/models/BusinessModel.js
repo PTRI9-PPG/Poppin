@@ -32,7 +32,7 @@ const BusinessSchema = new Schema({
     type: String,
     required: [true, 'Password is required'],
     minLength: 6,
-    maxLength: 30,
+    maxLength: 300,
     select: false,
   },
   poppinscore: {

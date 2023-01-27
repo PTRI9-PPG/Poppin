@@ -31,11 +31,11 @@ const RegisterBusiness = () => {
     businessname: '',
     image: '',
     phonenumber: '',
-    // location: '',
+    location: '',
   });
 
   const { businessname, image, phonenumber, location } = businessInfo;
-
+  console.log('SELECTED BUSINESS ', selectedBusiness);
   const handleSubmit = (e) => {
     e.preventDefault();
     const businessData = {
@@ -44,7 +44,7 @@ const RegisterBusiness = () => {
       businessname,
       image,
       phonenumber,
-      // location,
+      location,
     };
     console.log('businessDATA', businessData);
     dispatch(registerBusiness(businessData));
@@ -104,15 +104,15 @@ const RegisterBusiness = () => {
         value={phonenumber}
         onChange={onChange}
       />
-      {/* <input
-        type='text'
-        id='location'
-        name='location'
-        placeholder='location'
+      <input
+        type="text"
+        id="location"
+        name="location"
+        placeholder="location"
         required={true}
         value={location}
         onChange={onChange}
-      /> */}
+      />
       <button type="submit" className="button">
         Submit
       </button>
