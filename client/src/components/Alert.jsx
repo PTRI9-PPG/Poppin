@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 const Alert = () => {
 
   return (
-    <div>
-      <h2>Invalid Code</h2>
+    <div className='alert'>
+      <h2 className='invalid'>Invalid Code</h2>
     </div>
   );
 };

@@ -7,11 +7,9 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { logout, reset } from '../features/auth/authSlice';
 // import { handleSignOut } from './GoogleAuth';
 
-
 const Header = ({
   setShowLogin,
   setShowReg,
-  setShowRegBusiness,
   // setShowToggle,
 }) => {
   //use selector reads data from the store. store is modified by the reducer functions in the slice
@@ -25,7 +23,6 @@ const Header = ({
   const handleLogin = () => {
     console.log('login clicked');
     if (toggle) {
-      setShowRegBusiness(false);
       setShowLogin(true);
     }
     setShowReg(false);
@@ -39,7 +36,6 @@ const Header = ({
   };
   const handleRegBusiness = () => {
     console.log('registration for business clicked');
-    setShowRegBusiness(true);
     setShowLogin(false);
   };
 
@@ -71,9 +67,9 @@ const Header = ({
   };
 
   return (
-    <nav className="header">
-      <div className="logo">
-        <img src={logo} alt="corks" />
+    <nav className='header'>
+      <div className='logo'>
+        <img src={logo} alt='corks' />
       </div>
 
       {/* <div>
@@ -98,24 +94,8 @@ const Header = ({
             <li>
               <button onClick={handleLogin}>Login</button>
             </li>
-
-            {!toggle ? (
-              <>
-                <li>
-                  <button onClick={handleReg}>Register</button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <button onClick={handleRegBusiness}>RegisterBusiness</button>
-                </li>
-              </>
-            )}
             <li>
-              <button className="toggleSwitch" onClick={handleToggle}>
-                Business?
-              </button>
+              <button onClick={handleReg}>Register</button>
             </li>
           </>
         )}

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setCheckedIn } from '../features/auth/authSlice';
 import { setSelectedBusiness } from '../features/businesses/businessSlice';
-import Fillimg from './placeHolder.png';
+import Fillimg from '../assets/images/beer-loop.gif';
 
 const CheckinDetails = () => {
   const navigate = useNavigate();
@@ -36,7 +36,10 @@ const CheckinDetails = () => {
     <>
       <div className='checkInContainer'>
         {!checkedIn ? (
-          <h3>You are not currently checked in anywhere...</h3>
+          <div className='notChecked'>
+            <h3>You are not currently checked in anywhere...</h3>
+            <img src={Fillimg} alt='' />
+          </div>
         ) : (
           <div className='checkInDetail'>
             <h3>Your Current Checkin Details</h3>

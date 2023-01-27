@@ -18,7 +18,7 @@ function RegisterModal({ setShowReg }) {
   const { email, password, password2 } = formData;
 
   const { isError, isSuccess, message, user } = useSelector(
-    (state) => state.auth
+    (state) => state.auth,
   );
 
   const {
@@ -118,14 +118,17 @@ function RegisterModal({ setShowReg }) {
           <button type='submit' className='button'>
             Submit
           </button>
-          <input
-            type='checkbox'
-            checked={isChecked}
-            onChange={(e) => {
-              setIsChecked(!isChecked);
-            }}
-          />
-          <p>Business?</p>
+          <div className='isBusinessBox'>
+            <p>Business?</p>
+            <input
+              className='checkbox'
+              type='checkbox'
+              checked={isChecked}
+              onChange={(e) => {
+                setIsChecked(!isChecked);
+              }}
+            />
+          </div>
         </form>
       </div>
     </>

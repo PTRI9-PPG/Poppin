@@ -18,9 +18,9 @@
   border-radius: 10px;
   h2 {
     position: absolute;
-    top: 2em;
+    top: 1em;
     font-size: 3vw;
-    opacity: 0.9
+    opacity: 0.9;
   }
   svg {
     position: absolute;
@@ -53,6 +53,7 @@
     width: 17vw;
     height: 5vh;
     font-size: 160%;
+    padding: 0.75em;
   }
   input:focus {
     outline: none;
@@ -63,9 +64,28 @@
   }
   .button {
     font-size: 160%;
-    width: 90%;
+    width: 70%;
     margin-top: 1em;
     padding: 1.3vh 0;
     border-radius: 5em;
+  }
+  .isBusinessBox {
+    opacity: 0.75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10em;
+    bottom: 4em;
+    transition: 200ms;
+    position: absolute;
+    input {
+      cursor: pointer;
+    }
+    p {
+      font-size: 1.5em;
+    }
+  }
+  .isBusinessBox:hover {
+    opacity: 1;
   }
 }

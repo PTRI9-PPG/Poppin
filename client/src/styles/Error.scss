@@ -1,0 +1,53 @@
+.Error {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  color: $text;
+  font-family: $mainFont;
+  .eyeContainer {
+    display: grid;
+    place-items: center;
+    #anchor {
+      filter: drop-shadow(8px 6px 4px #282828);
+    }
+    #eyes {
+      position: absolute;
+      img {
+        position: absolute;
+      }
+    }
+  }
+  span {
+    position: absolute;
+    bottom: 15em;
+
+    a {
+      font-size: 2em;
+      color: $text;
+      text-decoration: none;
+    }
+
+    svg {
+      height: 4.25em;
+      bottom: 0;
+      position: absolute;
+      transform: translate(-92%, 1.2em) translateZ(0);
+      fill: none;
+      stroke: var(--stroke, $text);
+      stroke-linecap: round;
+      stroke-width: 1px;
+      stroke-dasharray: var(--offset, 69px) 278px;
+      stroke-dashoffset: 361px;
+      transition: stroke 0.25s ease var(--stroke-delay, 200ms),
+        stroke-dasharray 0.35s;
+      &:hover {
+        --spacing: 4px;
+        --stroke: #d7bdff;
+        --stroke-delay: 0.1s;
+        --offset: 180px;
+      }
+    }
+  }
+}

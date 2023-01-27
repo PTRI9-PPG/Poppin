@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
 import RegisterBusiness from './pages/RegisterBusiness';
 import BusinessDashboard from './pages/BusinessDashboard';
+import Error from './pages/Error';
 
 const App = () => {
   const { user } = useSelector((state) => state.auth);
@@ -24,6 +25,7 @@ const App = () => {
           <Route path='/registerBusiness' element={<RegisterBusiness />} />
           <Route path='/home' element={<Dashboard />} />
           <Route path='/checkin' element={<Checkin />} />
+          <Route path='/*' element={<Error />} />
         </Routes>
       </HashRouter>
     </>
