@@ -24,7 +24,11 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
     e.preventDefault();
     console.log('button clicked');
     try {
+<<<<<<< HEAD
       const response = dispatch(
+=======
+      const response = await dispatch(
+>>>>>>> dev
         checkCode({ id: selectedBusiness.id, code: code }),
       );
       console.log('RESPONSEEE', response);
@@ -80,11 +84,7 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
             onChange={(e) => setCode(e.target.value)}
           />
           {showAlert ? <Alert /> : null}
-          {!checkedIn ? (
-            <button type='submit'>Check In</button>
-          ) : (
-            <button type='submit'>Check Out</button>
-          )}
+          <button type='submit'>Check In</button>
         </form>
       </div>
     </div>

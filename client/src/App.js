@@ -4,8 +4,10 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 import Checkin from './pages/Checkin';
 import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
-import BusinessDashboard from './pages/BusinessDashboard';
 import RegisterBusiness from './pages/RegisterBusiness';
+import BusinessDashboard from './pages/BusinessDashboard';
+import Error from './pages/Error';
+
 const App = () => {
   const { user } = useSelector((state) => state.auth);
 
@@ -13,16 +15,17 @@ const App = () => {
     <>
       <HashRouter>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path='/' element={<LandingPage />} />
           {/* 
           Route protected...
           {user && <Route path='/home' element={<Dashboard />} />}
           {user && <Route path='/checkin' element={<Checkin />} />} */}
 
-          <Route path="/registerBusiness" element={<RegisterBusiness />} />
-          <Route path="/businessDashboard" element={<BusinessDashboard />} />
-          <Route path="/home" element={<Dashboard />} />
-          <Route path="/checkin" element={<Checkin />} />
+          <Route path='/businessDashboard' element={<BusinessDashboard />} />
+          <Route path='/registerBusiness' element={<RegisterBusiness />} />
+          <Route path='/home' element={<Dashboard />} />
+          <Route path='/checkin' element={<Checkin />} />
+          <Route path='/*' element={<Error />} />
         </Routes>
       </HashRouter>
     </>

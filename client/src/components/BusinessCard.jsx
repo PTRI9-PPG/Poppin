@@ -1,63 +1,67 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { GiChampagneCork } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
-
+import barPromotions from '../features/businesses/util'
 import { setSelectedBusiness } from '../features/businesses/businessSlice';
 
-const BusinessCard = ({
-  businessCard,
-  setShowCheckinModal,
-}) => {
+
+const BusinessCard = ({ businessCard, setShowCheckinModal }) => {
+  const [image, setImage] = useState(null);
+  const [addy, setAddy] = useState(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {}, []);
+
   const { checkedIn } = useSelector((state) => state.auth);
   const handleBusinessClick = (e) => {
     dispatch(setSelectedBusiness(businessCard));
     setShowCheckinModal(true);
   };
 
+  
+
+  const promo = barPromotions[Math.floor(Math.random() * 20)];
+
+  const random = Math.floor(Math.random() * (100 - 21 + 1) + 21);
+
+  setTimeout(() => {
+    setImage(businessCard.photos[0].getUrl());
+    setAddy(businessCard.vicinity);
+  }, 0);
+
+  console.log(businessCard);
+
   return (
     <div className='BusinessCard'>
       <div>
         <div>
-          <img src={businessCard?.image} alt='img' />
+          <img src={image ? image : null} alt='img' />
           {/* make sure to option chain (?), since this will be undefined until data is actually fetched. if no option chain, app will crash at run time instead of just temporarily returning undefined while data is fetching */}
         </div>
         <div className='cardInfo'>
           <div>
             <div className='bussName'>{businessCard?.businessname}</div>
-            <div className='loc'>{businessCard?.location}</div>
-            <div className='phone'> Phone Number: </div>
-            <div className='phoneNum'>{businessCard?.phonenumber}</div>
+            <div className='loc'>{addy}</div>
             <div>
-              <div>Deal: {businessCard?.incentive}</div>
+              <div>Deal: {promo}</div>
               {/* the question mark is needed as it AWAITS for the data to populate */}
               <div className='score'>
                 <div>Poppin Score:</div>
                 <div>
                   <GiChampagneCork
-                    color={
-                      businessCard?.poppinscore >= 20 ? '#f45d5d' : '#a1ccdcb7'
-                    }
+                    color={random >= 20 ? '#f45d5d' : '#a1ccdcb7'}
                   />
                   <GiChampagneCork
-                    color={
-                      businessCard?.poppinscore >= 40 ? '#f45d5d' : '#a1ccdcb7'
-                    }
+                    color={random >= 40 ? '#f45d5d' : '#a1ccdcb7'}
                   />
                   <GiChampagneCork
-                    color={
-                      businessCard?.poppinscore >= 60 ? '#f45d5d' : '#a1ccdcb7'
-                    }
+                    color={random >= 60 ? '#f45d5d' : '#a1ccdcb7'}
                   />
                   <GiChampagneCork
-                    color={
-                      businessCard?.poppinscore >= 80 ? '#f45d5d' : '#a1ccdcb7'
-                    }
+                    color={random >= 80 ? '#f45d5d' : '#a1ccdcb7'}
                   />
                   <GiChampagneCork
-                    color={
-                      businessCard?.poppinscore >= 100 ? '#f45d5d' : '#a1ccdcb7'
-                    }
+                    color={random >= 100 ? '#f45d5d' : '#a1ccdcb7'}
                   />
                 </div>
               </div>

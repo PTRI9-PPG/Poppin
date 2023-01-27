@@ -228,6 +228,7 @@ const businessController = {
     try {
       const currentcode =
         randomCode[Math.floor(Math.random() * randomCode.length)];
+
       console.log('code from db ==>', currentcode);
       console.log('req.bodycode ==>', code);
       if (code === currentcode) {

@@ -1,0 +1,57 @@
+.checkInContainer {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  height: 80vh;
+  .notChecked {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    h3 {
+      font-size: 3em;
+      color: $text;
+    }
+  }
+
+  .checkInDetail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 30vw;
+    height: 80%;
+    font-family: $mainFont;
+    color: $text;
+    border: 2px solid $accent;
+    padding: 4em;
+    border-radius: 2em;
+    background-color: #25394a;
+    font-family: $text;
+    font-size: 1.25em;
+    h3 {
+      font-size: 1.5em;
+    }
+    img {
+      width: 100%;
+    }
+    button {
+      width: 45%;
+      height: 15%;
+      font-size: 1.5em;
+      font-family: $mainFont;
+      border-radius: 3em;
+      background-color: $primary;
+      color: $text;
+      border: 2px solid $accent;
+      cursor: pointer;
+      opacity: 0.75;
+      transition: 200ms;
+    }
+    button:hover {
+      color: $primary;
+      background-color: $secondary;
+      opacity: 1;
+    }
+  }
+}
