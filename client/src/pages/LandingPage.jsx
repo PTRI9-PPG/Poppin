@@ -10,11 +10,7 @@ import FootImg from './svg/footer.svg';
 const LandingPage = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showReg, setShowReg] = useState(false);
-<<<<<<< HEAD
   const [showRegBusiness, setShowRegBusiness] = useState(false);
-=======
-
->>>>>>> dev
   return (
     <>
       <div
@@ -35,13 +31,8 @@ const LandingPage = () => {
           className="parallax"
           style={{ backgroundImage: 'url(' + bar + ')' }}
         />
-<<<<<<< HEAD
         <ul className="cards">
           <li className="card">
-=======
-        <ul className='cards'>
-          <li className='card'>
->>>>>>> dev
             <div>
               <IoAccessibility />
               <IoAccessibility />

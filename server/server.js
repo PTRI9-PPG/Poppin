@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-const db = require('./db');
+// const db = require('./db/connect');
 const passport = require('passport');
 
 // db and authenticate user
@@ -14,7 +14,7 @@ const connectDB = require('./db/connect.js');
 // middleware
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
-dotenv.config();
+// dotenv.config();
 // dotenv.config({ path: '../.env' });
 
 require('./auth');
