@@ -1,10 +1,14 @@
 const express = require('express');
 require('dotenv').config();
 // const db = require('./db/connect');
-const passport = require('passport');
 
 // db and authenticate user
 const connectDB = require('./db/connect.js');
+const cookieSession = require('cookie-session');
+const cors = require('cors');
+const passportSetup = require('./oauth/passport');
+const authRoute = require('./oauth/auth');
+const passport = require('passport');
 
 // routers
 //this is how you pull in the env file
