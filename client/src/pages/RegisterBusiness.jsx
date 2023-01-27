@@ -31,11 +31,11 @@ const RegisterBusiness = () => {
     businessname: '',
     image: '',
     phonenumber: '',
-    // location: '',
+    location: '',
   });
 
   const { businessname, image, phonenumber, location } = businessInfo;
-
+  console.log('SELECTED BUSINESS ', selectedBusiness);
   const handleSubmit = (e) => {
     e.preventDefault();
     const businessData = {
@@ -44,7 +44,7 @@ const RegisterBusiness = () => {
       businessname,
       image,
       phonenumber,
-      // location,
+      location,
     };
     console.log('businessDATA', businessData);
     dispatch(registerBusiness(businessData));
@@ -78,42 +78,42 @@ const RegisterBusiness = () => {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        type='text'
-        id='businessname'
-        name='businessname'
-        placeholder='businessname'
+        type="text"
+        id="businessname"
+        name="businessname"
+        placeholder="businessname"
         required={true}
         value={businessname}
         onChange={onChange}
       />
       <input
-        type='text'
-        id='image'
-        name='image'
-        placeholder='Image URL'
+        type="text"
+        id="image"
+        name="image"
+        placeholder="Image URL"
         required={true}
         value={image}
         onChange={onChange}
       />
       <input
-        type='text'
-        id='phonenumber'
-        name='phonenumber'
-        placeholder='phonenumber'
+        type="text"
+        id="phonenumber"
+        name="phonenumber"
+        placeholder="phonenumber"
         required={true}
         value={phonenumber}
         onChange={onChange}
       />
-      {/* <input
-        type='text'
-        id='location'
-        name='location'
-        placeholder='location'
+      <input
+        type="text"
+        id="location"
+        name="location"
+        placeholder="location"
         required={true}
         value={location}
         onChange={onChange}
-      /> */}
-      <button type='submit' className='button'>
+      />
+      <button type="submit" className="button">
         Submit
       </button>
     </form>

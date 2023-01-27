@@ -5,12 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { logout, reset } from '../features/auth/authSlice';
-// import { handleSignOut } from './GoogleAuth';
+import { handleSignOut } from './GoogleAuth';
+// import Toggle from './Toggle';
 
 const Header = ({
   setShowLogin,
   setShowReg,
-  // setShowToggle,
+  setShowRegBusiness,
+  setShowToggle,
 }) => {
   //use selector reads data from the store. store is modified by the reducer functions in the slice
   const { user } = useSelector((state) => state.auth);
@@ -23,6 +25,7 @@ const Header = ({
   const handleLogin = () => {
     console.log('login clicked');
     if (toggle) {
+      setShowRegBusiness(false);
       setShowLogin(true);
     }
     setShowReg(false);
@@ -36,6 +39,7 @@ const Header = ({
   };
   const handleRegBusiness = () => {
     console.log('registration for business clicked');
+    setShowRegBusiness(true);
     setShowLogin(false);
   };
 
@@ -67,9 +71,9 @@ const Header = ({
   };
 
   return (
-    <nav className='header'>
-      <div className='logo'>
-        <img src={logo} alt='corks' />
+    <nav className="header">
+      <div className="logo">
+        <img src={logo} alt="corks" />
       </div>
 
       {/* <div>

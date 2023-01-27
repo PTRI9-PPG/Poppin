@@ -67,7 +67,7 @@ const Dashboard = () => {
           'lat: ',
           bar.geometry.location.lat(),
           'lng: ',
-          bar.geometry.location.lng(),
+          bar.geometry.location.lng()
         );
         latLngArr.push({
           lat: parseFloat(bar.geometry.location.lat()),
@@ -103,6 +103,8 @@ const Dashboard = () => {
 
   //Move the map to the query location provided in the searchbox
   const onPlacesChanged = async () => {
+    setSearched(true);
+
     const places = await searchBox.getPlaces();
     const bounds = new google.maps.LatLngBounds();
 
@@ -154,15 +156,15 @@ const Dashboard = () => {
 
   return isLoaded ? (
     <>
-      <div className='Dashboard'>
-        <Header className='header' />
+      <div className="Dashboard">
+        <Header className="header" />
         <StandaloneSearchBox
           onLoad={onSBLoad}
           onPlacesChanged={onPlacesChanged}
         >
           <form
             onSubmit={handleSubmit}
-            className='search'
+            className="search"
             style={
               searched
                 ? {
@@ -183,7 +185,7 @@ const Dashboard = () => {
             }
           >
             <input
-              type='text'
+              type="text"
               placeholder={
                 searched ? 'Address' : 'Where Would You Like to Search?'
               }
@@ -217,7 +219,7 @@ const Dashboard = () => {
           {/* End User Form Section */}
           {/* Map section */}
           <div
-            className='MapContainer'
+            className="MapContainer"
             style={{
               filter: searched ? 'none' : 'blur(5px)',
             }}

@@ -18,7 +18,7 @@ function RegisterModal({ setShowReg }) {
   const { email, password, password2 } = formData;
 
   const { isError, isSuccess, message, user } = useSelector(
-    (state) => state.auth,
+    (state) => state.auth
   );
 
   const {
@@ -85,44 +85,44 @@ function RegisterModal({ setShowReg }) {
 
   return (
     <>
-      <div className='authPrompt'>
+      <div className="authPrompt">
         <div onClick={handleClick}>
           <AiOutlineCloseCircle />
         </div>
         <h2>Register</h2>
         <form onSubmit={handleSubmit}>
           <input
-            type='email'
-            id='email'
-            name='email'
-            placeholder='email'
+            type="email"
+            id="email"
+            name="email"
+            placeholder="email"
             required={true}
             onChange={onChange}
           />
           <input
-            type='password'
-            id='password'
-            name='password'
-            placeholder='password'
+            type="password"
+            id="password"
+            name="password"
+            placeholder="password"
             required={true}
             onChange={onChange}
           />
           <input
-            type='password'
-            id='password2'
-            name='password2'
-            placeholder='confirm password'
+            type="password"
+            id="password2"
+            name="password2"
+            placeholder="confirm password"
             required={true}
             onChange={onChange}
           />
-          <button type='submit' className='button'>
+          <button type="submit" className="button">
             Submit
           </button>
-          <div className='isBusinessBox'>
+          <div className="isBusinessBox">
             <p>Business?</p>
             <input
-              className='checkbox'
-              type='checkbox'
+              className="checkbox"
+              type="checkbox"
               checked={isChecked}
               onChange={(e) => {
                 setIsChecked(!isChecked);
