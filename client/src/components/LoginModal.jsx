@@ -73,11 +73,11 @@ const LoginModal = ({ setShowLogin }) => {
       <div className="wrapper">
         <div className="left">
           <div className="loginButton google" onClick={google}>
-            <img src={Google} className="icon" />
+            {/* <img src={Google} className="icon" /> */}
             Google
           </div>
           <div className="loginButton github" onClick={github}>
-            <img src={Github} className="icon" />
+            {/* <img src={Github} className="icon" /> */}
             Github
           </div>
         </div>

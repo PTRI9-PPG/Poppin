@@ -18,8 +18,8 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 // dotenv.config({ path: '../.env' });
 
 require('./auth');
-const userRoutes = require('./routes/users');
-const businessRoutes = require('./routes/businesses');
+const userRoutes = require('./routes/userRoutes');
+const businessRoutes = require('./routes/businessRoutes');
 const app = express();
 const port = 3005;
 console.log('mongo URI ', process.env.MONGODB_URI);
@@ -27,9 +27,9 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-db.authenticate()
-  .then(() => console.log('Database connected...'))
-  .catch((err) => console.log('ERROR', err));
+// db.authenticate()
+//   .then(() => console.log('Database connected...'))
+//   .catch((err) => console.log('ERROR', err));
 
 app.use('/users', userRoutes);
 app.use('/businesses', businessRoutes);
