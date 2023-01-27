@@ -42,9 +42,15 @@ const Header = ({ setShowLogin, setShowReg }) => {
   };
 
   return (
+<<<<<<< HEAD
     <nav className='header'>
       <div className='logo'>
         <img src={logo} alt='corks' />
+=======
+    <nav className="header">
+      <div className="logo">
+        <img src={logo} alt="corks" />
+>>>>>>> 3af183b (resolved)
       </div>
 
       {/* <div>
