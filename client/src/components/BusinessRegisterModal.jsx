@@ -1,3 +1,5 @@
+//Depricated 
+
 // import React, { useEffect, useState } from 'react';
 // import { AiOutlineCloseCircle } from 'react-icons/ai';
 // import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +11,7 @@
 //     email: '',
 //     password: '',
 //     password2: '',
-//     // businessCode: '',
+//     businessCode: '',
 //   });
 
 //   const { email, password, password2 } = formData;
@@ -84,14 +86,14 @@
 //             required={true}
 //             onChange={onChange}
 //           />
-//           {/* <input
+//           <input
 //             type="businessCode"
 //             id="businessCode"
 //             name="businessCode"
 //             placeholder="confirm business code"
 //             required={true}
 //             onChange={onChange}
-//           /> */}
+//           />
 //           <button type="submit" className="button">
 //             Submit
 //           </button>

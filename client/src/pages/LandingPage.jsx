@@ -4,21 +4,19 @@ import bar from '../assets/images/bar.jpg';
 import Header from '../components/Header';
 import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
-import BusinessRegisterModal from '../components/RegisterModal';
 import FootImg from './svg/footer.svg';
 
 const LandingPage = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showReg, setShowReg] = useState(false);
-  const [showRegBusiness, setShowRegBusiness] = useState(false);
+
   return (
     <>
       <div
         className='landingPage'
         style={{
-          filter:
-            showLogin || showReg || showRegBusiness ? 'blur(5px)' : 'none',
-          opacity: showLogin || showReg || showRegBusiness ? '.7' : '1',
+          filter: showLogin || showReg ? 'blur(5px)' : 'none',
+          opacity: showLogin || showReg ? '.7' : '1',
           overflow: 'hidden',
         }}
       >

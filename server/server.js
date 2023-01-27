@@ -45,7 +45,7 @@ app.use('/businesses', businessRoutes);
 // });
 
 // //catch all route handler
-// app.use((_, res) => res.status(404).send('page not found'));
+app.use((_, res) => res.status(404).send('page not found'));
 
 //global error handler
 
