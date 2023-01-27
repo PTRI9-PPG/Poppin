@@ -43,6 +43,8 @@
     "jsonwebtoken": "^9.0.0",
     "mini-css-extract-plugin": "^2.7.2",
     "nodemon": "^2.0.20",
+    "passport": "^0.6.0",
+    "passport-google-oauth2": "^0.2.0",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
     "postcss-loader": "^7.0.2",

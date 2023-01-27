@@ -24,6 +24,7 @@ const App = () => {
           <Route path='/registerBusiness' element={<RegisterBusiness />} />
           <Route path='/home' element={<Dashboard />} />
           <Route path='/checkin' element={<Checkin />} />
+          <Route path='/*' element={<Error />} />
         </Routes>
       </HashRouter>
     </>

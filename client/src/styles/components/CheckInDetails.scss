@@ -3,6 +3,16 @@
   display: flex;
   justify-content: center;
   height: 80vh;
+  .notChecked {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    h3 {
+      font-size: 3em;
+      color: $text;
+    }
+  }
 
   .checkInDetail {
     display: flex;
@@ -19,7 +29,7 @@
     background-color: #25394a;
     font-family: $text;
     font-size: 1.25em;
-    h3{
+    h3 {
       font-size: 1.5em;
     }
     img {
@@ -35,10 +45,10 @@
       color: $text;
       border: 2px solid $accent;
       cursor: pointer;
-      opacity: .75;
+      opacity: 0.75;
       transition: 200ms;
     }
-    button:hover{
+    button:hover {
       color: $primary;
       background-color: $secondary;
       opacity: 1;

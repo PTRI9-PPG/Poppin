@@ -1,9 +1,13 @@
 import React from 'react';
 
-const Error = () => (
-  <>
-    <h1>404 lol</h1>
-  </>
-);
+
+const Error = () => {
+
+  return (
+    <div className='Error'>
+      <img src={err} alt='' />
+    </div>
+  );
+};
 
 export default Error;
