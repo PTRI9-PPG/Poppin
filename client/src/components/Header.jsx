@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { logout, reset } from '../features/auth/authSlice';
+import { handleSignOut } from './GoogleAuth';
+// import Toggle from './Toggle';
 
-const Header = ({ setShowLogin, setShowReg }) => {
+const Header = ({
+  setShowLogin,
+  setShowReg,
+  setShowRegBusiness,
+  setShowToggle,
+}) => {
   //use selector reads data from the store. store is modified by the reducer functions in the slice
   const { user } = useSelector((state) => state.auth);
   //use dispatch dispatch's actions and allows them to be used
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [toggle, setToggle] = useState(false);
+
   const handleLogin = () => {
     console.log('login clicked');
+    if (toggle) {
+      setShowRegBusiness(false);
+      setShowLogin(true);
+    }
     setShowReg(false);
     setShowLogin(true);
   };
@@ -22,6 +35,11 @@ const Header = ({ setShowLogin, setShowReg }) => {
   const handleReg = () => {
     console.log('registration clicked');
     setShowReg(true);
+    setShowLogin(false);
+  };
+  const handleRegBusiness = () => {
+    console.log('registration for business clicked');
+    setShowRegBusiness(true);
     setShowLogin(false);
   };
 
@@ -38,19 +56,24 @@ const Header = ({ setShowLogin, setShowReg }) => {
 
   const handleHome = () => {
     console.log('nav to dashboard');
+    if (toggle) {
+      return navigate('/business');
+    }
     navigate('/home');
   };
 
+  const handleToggle = (event) => {
+    console.log('toggle clicked', toggle);
+    if (toggle === false) {
+      return setToggle(true);
+    }
+    setToggle(false);
+  };
+
   return (
-<<<<<<< HEAD
-    <nav className='header'>
-      <div className='logo'>
-        <img src={logo} alt='corks' />
-=======
     <nav className="header">
       <div className="logo">
         <img src={logo} alt="corks" />
->>>>>>> 3af183b (resolved)
       </div>
 
       {/* <div>
@@ -68,9 +91,6 @@ const Header = ({ setShowLogin, setShowReg }) => {
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>
-            <div className="userpic">
-              <img src={user.picture}></img>
-            </div>
           </>
         ) : (
           <>

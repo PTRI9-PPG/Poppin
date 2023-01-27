@@ -1,17 +1,23 @@
 const express = require('express');
-const { 
-    businessRegister, 
-    loginBusiness, 
-    updateBusiness, 
-    checkDealCode, 
-    deleteBusiness } = require('../controllers/businessController');
+const {
+  businessRegister,
+  getAllBusinesses,
+  initialRegisterBusiness,
+  registerBusiness,
+  loginBusiness,
+  updateBusiness,
+  checkDealCode,
+  deleteBusiness,
+} = require('../controllers/businessController');
 
 const router = express.Router();
 
-router.route('/').post(businessRegister);
-router.route('/login').post(loginBusiness);
-router.route('/:id').patch(updateBusiness);
-router.route('/checkin/:id').post(checkDealCode);
-router.route('/:id').delete(deleteBusiness);
+router.get('/', getAllBusinesses);
+router.post('/login', loginBusiness);
+router.post('/', initialRegisterBusiness);
+router.post('/register', registerBusiness);
+router.put('/:id', updateBusiness);
+router.post('/checkin/:id', checkDealCode);
+router.delete('/:id', deleteBusiness);
 
 module.exports = router;

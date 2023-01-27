@@ -27,6 +27,7 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
       const response = dispatch(
         checkCode({ id: selectedBusiness.id, code: code }),
       );
+      console.log('RESPONSEEE', response);
       if (response.payload.message === 'Code matched, new code generated') {
         dispatch(setCheckedIn(true));
         dispatch(
@@ -36,7 +37,8 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
             poppinscore: selectedBusiness.poppinscore,
           }),
         );
-        dispatch(getAllBusinesses());
+        dispatch(getAllBusinesses()); //not sure if still needed, check later
+        // window.location.reload();
         setShowCheckinModal(false);
       } else {
         console.log('message', message);
@@ -61,10 +63,10 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
   };
 
   return (
-    <>
-      <div>
-        <div onClick={handleClick}>
-          <AiOutlineCloseCircle size={25} />
+    <div className='checkFlex'>
+      <div className='checkIn'>
+        <div onClick={handleClick} className='x'>
+          <AiOutlineCloseCircle />
         </div>
         <h2>Ask Your Server For A Code:</h2>
         <form onSubmit={handleSubmit}>
@@ -85,7 +87,7 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
           )}
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
