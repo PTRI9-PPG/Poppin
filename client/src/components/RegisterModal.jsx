@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { register, reset } from '../features/auth/authSlice';
 import { reset as businessReset } from '../features/businesses/businessSlice';
-import {
-  initialRegisterBusiness,
-} from '../features/businesses/businessSlice';
+import { initialRegisterBusiness } from '../features/businesses/businessSlice';
 
 function RegisterModal({ setShowReg }) {
   const [formData, setFormData] = useState({
@@ -71,6 +69,7 @@ function RegisterModal({ setShowReg }) {
     e.preventDefault();
     if (password !== password2) {
       window.alert('passwords do not match');
+      return;
     }
     const userInfo = { email, password };
     if (!isChecked) {
@@ -124,12 +123,6 @@ function RegisterModal({ setShowReg }) {
             checked={isChecked}
             onChange={(e) => {
               setIsChecked(!isChecked);
-              // if (isChecked) {
-              //   setIsChecked(false);
-              // } else {
-              //   setIsChecked(true);
-              // }
-              // console.log(isChecked);
             }}
           />
           <p>Business?</p>

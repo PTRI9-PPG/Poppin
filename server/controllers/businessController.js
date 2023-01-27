@@ -37,33 +37,33 @@ const businessController = {
   },
   registerBusiness: async (req, res, next) => {
     const {
-      username,
+      // username,
       businessname,
       password,
       email,
-      location,
-      poppinscore,
-      maxcapacity,
-      currentcapacity,
+      // location,
+      // poppinscore,
+      // maxcapacity,
+      // currentcapacity,
       image,
       phonenumber,
-      incentive,
+      // incentive,
     } = req.body;
 
     let { latitude, longitude } = req.body;
 
     try {
-      if (!username || !businessname || !password || !email || !location) {
+      if (!businessname || !password || !email /*|| !location*/) {
         res.status(400);
         throw new Error('Please add all required fields');
       }
 
-      const businessExists = await Business.findOne({ where: { email } });
+      // const businessExists = await Business.findOne({ where: { email } });
 
-      if (businessExists) {
-        res.status(400);
-        throw new Error('business already exists');
-      }
+      // if (businessExists) {
+      //   res.status(400);
+      //   throw new Error('business already exists');
+      // }
 
       const hashedPassword = await bcrypt.hash(password, 10); // 10 is the *salt*
 
@@ -83,11 +83,11 @@ const businessController = {
         .catch((error) => console.log(error));
 
       const newBusiness = await Business.create({
-        username,
+        username: 'whatever',
         businessname,
-        password,
+        password: hashedPassword,
         email,
-        location,
+        location: 'weh',
         poppinscore: 100,
         maxcapacity: 100,
         currentcapacity: 100,
@@ -95,7 +95,7 @@ const businessController = {
         longitude,
         image,
         phonenumber,
-        incentive,
+        incentive: 'incentive',
         currentcode: 'felix',
         codestouse: generatedCodes,
         storedcodes: [],

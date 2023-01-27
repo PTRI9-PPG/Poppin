@@ -10,9 +10,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// db.authenticate()
-//   .then(() => console.log('Database connected...'))
-//   .catch((err) => console.log('ERROR', err));
+db.authenticate()
+  .then(() => console.log('Database connected...'))
+  .catch((err) => console.log('ERROR', err));
 
 app.use('/users', userRoutes);
 
