@@ -65,48 +65,48 @@ const LoginModal = ({ setShowLogin }) => {
   };
 
   return (
-    <div className="authPrompt">
+    <div className='authPrompt'>
       <div onClick={handleClick}>
         <AiOutlineCloseCircle />
       </div>
-      <h1 className="loginTitle">Login</h1>
-      <div className="wrapper">
-        <div className="left">
-          <div className="loginButton google" onClick={google}>
+      <h1 className='loginTitle'>Login</h1>
+      <div className='wrapper'>
+        <div className='left'>
+          <div className='loginButton google' onClick={google}>
             {/* <img src={Google} className="icon" /> */}
             Google
           </div>
-          <div className="loginButton github" onClick={github}>
+          <div className='loginButton github' onClick={github}>
             {/* <img src={Github} className="icon" /> */}
             Github
           </div>
         </div>
-        <div className="center">
-          <div className="line"></div>
+        <div className='center'>
+          <div className='line'></div>
         </div>
-        <div className="right">
+        <div className='right'>
           <form onSubmit={onSubmit}>
             <input
-              autocomplete="off"
-              type="email"
-              id="email"
-              name="email"
+              autoComplete='off'
+              type='email'
+              id='email'
+              name='email'
               value={email}
-              placeholder=" Type Your Email"
+              placeholder=' Type Your Email'
               required={true}
               onChange={onChange}
             />
             <input
-              autocomplete="off"
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Type Your Password"
+              autoComplete='off'
+              type='password'
+              id='password'
+              name='password'
+              placeholder='Type Your Password'
               value={password}
               required={true}
               onChange={onChange}
             />
-            <button className="stdButton" type="submit">
+            <button className='stdButton' type='submit'>
               Login
             </button>
           </form>

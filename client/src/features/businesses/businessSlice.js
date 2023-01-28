@@ -98,6 +98,10 @@ export const checkCode = createAsyncThunk(
   }
 );
 
+export const businessLogout = createAsyncThunk('business/logout', async () => {
+  localStorage.removeItem('businessUser');
+});
+
 //put all reducers in here its the home base for all global funcs/states to be utilized by all the various businessess
 
 export const businessSlice = createSlice({
@@ -197,6 +201,9 @@ export const businessSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.message = action.payload;
+      })
+      .addCase(businessLogout.fulfilled, (state) => {
+        state.businessUser = null;
       });
   },
 });
