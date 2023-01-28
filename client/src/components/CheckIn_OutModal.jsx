@@ -10,32 +10,29 @@ import { setCheckedIn } from '../features/auth/authSlice';
 
 const CheckIn_OutModal = ({ setShowCheckinModal }) => {
   const { selectedBusiness, message } = useSelector(
-    (state) => state.businesses
+    (state) => state.businesses,
   );
+  const codes = ['jason', 'lilly', 'roy', 'matt'];
   const { checkedIn } = useSelector((state) => state.auth);
-
+  const [regCode, setRegCode] = useState(codes[0]);
   const [code, setCode] = useState('');
   const dispatch = useDispatch();
-
   const [showAlert, setShowAlert] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('button clicked');
-    try {
-      const response = await dispatch(
-        checkCode({ id: selectedBusiness.id, code: code })
-      );
-      console.log('RESPONSEEE', response);
+    setRegCode(codes[Math.floor(Math.random() * codes.length)]);
+    console.log(regCode);
 
-      if (response.payload.message === 'Code matched, new code generated') {
+    try {
+      if (regCode === code) {
         dispatch(setCheckedIn(true));
         dispatch(
           updateBusiness({
             id: selectedBusiness.id,
             currentcapacity: selectedBusiness.currentcapacity,
             poppinscore: selectedBusiness.poppinscore,
-          })
+          }),
         );
         // window.location.reload();
         setShowCheckinModal(false);
@@ -62,24 +59,24 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
   };
 
   return (
-    <div className="checkFlex">
-      <div className="checkIn">
-        <div onClick={handleClick} className="x">
+    <div className='checkFlex'>
+      <div className='checkIn'>
+        <div onClick={handleClick} className='x'>
           <AiOutlineCloseCircle />
         </div>
         <h2>Ask Your Server For A Code:</h2>
         <form onSubmit={handleSubmit}>
           <input
-            type="text"
-            id="code"
-            name="code"
-            placeholder="code"
+            type='text'
+            id='code'
+            name='code'
+            placeholder='code'
             required={true}
             value={code}
             onChange={(e) => setCode(e.target.value)}
           />
           {showAlert ? <Alert /> : null}
-          <button type="submit">Check In</button>
+          <button type='submit'>Check In</button>
         </form>
       </div>
     </div>

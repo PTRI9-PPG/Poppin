@@ -1,5 +1,5 @@
 const express = require('express');
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv');
 
 // db and authenticate user
 const connectDB = require('./db/connect.js');
@@ -28,6 +28,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/users', userRoutes);
 app.use('/businesses', businessRoutes);
 
+
+// OAuth
+const cookieSession = require('cookie-session');
+const cors = require('cors');
+const passportSetup = require('./oauth/passport');
+const passport = require('passport');
+const authRoutes = require('./routes/authRoutes');
 app.use(
   cookieSession({
     name: 'session',
@@ -44,7 +51,7 @@ app.use(
     origin: 'http://localhost:8080',
     methods: 'GET, POST, PUT, DELETE',
     credentials: true,
-  })
+  }),
 );
 
 app.use('/auth', authRoutes);
@@ -63,7 +70,3 @@ const start = async () => {
 };
 
 start();
-app.listen(port, () => {
-  console.log('🚀 Successfully connected to the server 🚀');
-  console.log(`Server is listening on port ${port}...`);
-});

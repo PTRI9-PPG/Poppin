@@ -170,7 +170,7 @@ const businessController = {
         //added next to pas tokens
         // next();
       } else {
-        res.status(400);
+        res.status(400); 
         throw new Error('Email and Password combination is invalid');
       }
     } catch (err) {
