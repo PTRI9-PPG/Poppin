@@ -24,7 +24,7 @@ const LoginModal = ({ setShowLogin }) => {
 
   //grab state from redux
   const { user, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
+    (state) => state.auth,
   );
 
   const {
@@ -95,8 +95,8 @@ const LoginModal = ({ setShowLogin }) => {
     window.open('http://localhost:3005/auth/google', '_self');
   };
 
-  const github = () =>{
-    window.open("http://localhost:3005/auth/github", "_self")
+  const github = () => {
+    window.open('http://localhost:3005/auth/github', '_self');
   };
 
   return (
@@ -105,43 +105,43 @@ const LoginModal = ({ setShowLogin }) => {
         <AiOutlineCloseCircle />
       </div>
       <h1 className='loginTitle'>Login</h1>
-      <div className='wrapper'>
-        <div className='left'>
-          <div className='loginButton google' onClick={google}>
-            <img src={Google} className="icon"/> Google
+      <div className='center'>
+        <div className='line'></div>
+      </div>
+      <div className='right'>
+        <form onSubmit={onSubmit}>
+          <input
+            autoComplete='off'
+            type='email'
+            id='email'
+            name='email'
+            value={email}
+            placeholder=' Type Your Email'
+            required={true}
+            onChange={onChange}
+          />
+          <input
+            autoComplete='off'
+            type='password'
+            id='password'
+            name='password'
+            placeholder='Type Your Password'
+            value={password}
+            required={true}
+            onChange={onChange}
+          />
+          <button className='stdButton' type='submit'>
+            Login
+          </button>
+          <div className='oAuth'>
+            <div className='loginButton google' onClick={google}>
+              <img src={Google} className='icon' /> Google
+            </div>
+            <div className='loginButton github' onClick={github}>
+              <img src={Github} className='icon' /> Github
+            </div>
           </div>
-          <div className='loginButton github' onClick={github}>
-            <img src={Github} className="icon"/> Github
-          </div>
-        </div>
-        <div className='center'>
-          <div className='line'></div>
-        </div>
-        <div className='right'>
-          <form onSubmit={onSubmit}>
-            <input
-              autoComplete='off'
-              type='email'
-              id='email'
-              name='email'
-              value={email}
-              placeholder=' Type Your Email'
-              required={true}
-              onChange={onChange}
-            />
-            <input
-              autoComplete='off'
-              type='password'
-              id='password'
-              name='password'
-              placeholder='Type Your Password'
-              value={password}
-              required={true}
-              onChange={onChange}
-            />
-            <button className='stdButton' type='submit'>
-              Login
-            </button>
+          <div className='isBusinessBox'>
             <p>Business?</p>
             <input
               type='checkbox'
@@ -150,8 +150,8 @@ const LoginModal = ({ setShowLogin }) => {
                 setIsBusiness(!isBusiness);
               }}
             />
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );

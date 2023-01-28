@@ -63,7 +63,7 @@ const Dashboard = () => {
           'lat: ',
           bar.geometry.location.lat(),
           'lng: ',
-          bar.geometry.location.lng(),
+          bar.geometry.location.lng()
         );
         latLngArr.push({
           lat: parseFloat(bar.geometry.location.lat()),
