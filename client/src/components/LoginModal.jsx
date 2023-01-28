@@ -24,6 +24,8 @@ const LoginModal = ({ setShowLogin }) => {
     (state) => state.auth
   );
 
+  const [isBusiness, setIsBusiness] = useState(false);
+
   useEffect(() => {
     if (isError) {
       console.log(message);
@@ -49,7 +51,9 @@ const LoginModal = ({ setShowLogin }) => {
       email,
       password,
     };
-    dispatch(login(userData));
+    if (isBusiness) {
+      console.log('business');
+    } else dispatch(login(userData));
   };
 
   const handleClick = () => {
@@ -109,6 +113,14 @@ const LoginModal = ({ setShowLogin }) => {
             <button className='stdButton' type='submit'>
               Login
             </button>
+            <p>Business?</p>
+            <input
+              type='checkbox'
+              checked={isBusiness}
+              onChange={() => {
+                setIsBusiness(!isBusiness);
+              }}
+            />
           </form>
         </div>
       </div>

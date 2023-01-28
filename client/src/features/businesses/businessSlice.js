@@ -46,6 +46,18 @@ export const registerBusiness = createAsyncThunk(
   }
 );
 
+export const loginBusiness = createAsyncThunk(
+  'business/login',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(businessURL + 'login', data);
+    } catch (err) {
+      const message = err.response?.data.message || err.toString();
+      return rejectWithValue(message);
+    }
+  }
+);
+
 export const getAllBusinesses = createAsyncThunk(
   'business/getAll',
   async (_, thunkAPI) => {
@@ -152,6 +164,19 @@ export const businessSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.paylod;
+      })
+      .addCase(loginBusiness.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(loginBusiness.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.businessUser = action.payload;
+      })
+      .addCase(loginBusiness.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       })
       .addCase(getAllBusinesses.pending, (state) => {
         state.isLoading = true;
