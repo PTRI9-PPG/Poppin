@@ -63,7 +63,7 @@ const Header = ({ setShowLogin, setShowReg }) => {
               <button onClick={handleLogout}>Logout</button>
             </li>
             <div className="userpic">
-              <img src={user.picture}></img>
+              <img src={user.image}></img>
             </div>
           </>
         ) : (

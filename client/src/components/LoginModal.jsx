@@ -61,7 +61,7 @@ const LoginModal = ({ setShowLogin }) => {
   };
 
   const github = () =>{
-    window.open("http://localhost:3005/auth/github")
+    window.open("http://localhost:3005/auth/github", "_self")
   };
 
   return (

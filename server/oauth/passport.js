@@ -12,7 +12,7 @@ passport.serializeUser((user,done) => {
  
  // Deserialize will retrieve user data from session
 passport.deserializeUser((id, done) => {
-    // console.log({id})
+    console.log({id})
    
     AuthUser.findById(id).then((user) => {
         console.log('user--->',user)
@@ -27,7 +27,7 @@ passport.use(new GoogleStrategy({
     callbackURL: "/auth/google/callback",
   }, async (accessToken, refreshToken, profile, done) => {
     // passport callback function
-    // console.log('profile--->',profile)
+    console.log('profile--->',profile)
     
     // check if user already exists in our db so there's no duplicates
    AuthUser.findOne({googleID: profile.id}).then((currUser) => {
@@ -41,10 +41,8 @@ passport.use(new GoogleStrategy({
         new AuthUser({
             username: profile.displayName,
             googleID: profile.id,
-        })
-        .save()
-        .then((newAuthUser) => newAuthUser.json())
-        .then(newAuthUser =>{
+            image: profile.picture,
+        }).save().then(newAuthUser =>{
             console.log('New user created: ' + newAuthUser);
             //once we create a user, we will serialize it
             done(null, newAuthUser);
@@ -54,6 +52,36 @@ passport.use(new GoogleStrategy({
     }
 ));
 
+passport.use(new GitHubStrategy({
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: "/auth/github/callback"
+}, async (accessToken, refreshToken, profile, done) => {
+  
+  console.log('profile--->',profile);
+
+  // check if user already exists in our db so there's no duplicates
+  AuthUser.findOne({github: profile.value}).then((currUser) => {
+    if(currUser){
+        //already have the user
+        // console.log('User is: ', currUser);
+        //once we have an exisitng user, we will serialize it
+        done(null, currUser)
+    }else{
+        //if not, create user in our db
+        new AuthUser({
+            username: profile.username,
+            github: profile.id,
+            image: profile.avatar_url,
+        }).save().then(newAuthUser =>{
+            console.log('New user created: ' + newAuthUser);
+            //once we create a user, we will serialize it
+            done(null, newAuthUser);
+        });
+    }
+    });
+    }
+));
 
 module.exports = passport;
 
