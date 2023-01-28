@@ -4,15 +4,15 @@ const validator = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const BusinessSchema = new Schema ({
-  username:{
+const BusinessSchema = new Schema({
+  username: {
     type: String,
     required: [true, 'Please provide a username'],
     minLength: 3,
     maxLength: 30,
     trim: true,
   },
-  businessname:{
+  businessname: {
     type: String,
     required: [true, 'Please provide a business name'],
     minLength: 3,
@@ -32,7 +32,7 @@ const BusinessSchema = new Schema ({
     type: String,
     required: [true, 'Password is required'],
     minLength: 6,
-    maxLength: 30,
+    maxLength: 300,
     select: false,
   },
   poppinscore: {
@@ -81,7 +81,7 @@ const BusinessSchema = new Schema ({
   currentcode: {
     type: String,
   },
-  codetouse:{
+  codetouse: {
     type: Array,
   },
   storedcodes: {

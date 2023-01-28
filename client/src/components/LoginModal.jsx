@@ -6,6 +6,10 @@ import { login, reset } from '../features/auth/authSlice';
 // import GoogleAuth from './GoogleAuth';
 import Google from '../assets/images/google.png';
 import Github from '../assets/images/github.png';
+import {
+  loginBusiness,
+  reset as businessReset,
+} from '../features/businesses/businessSlice';
 
 const LoginModal = ({ setShowLogin }) => {
   const [formData, setFormData] = useState({
@@ -21,20 +25,49 @@ const LoginModal = ({ setShowLogin }) => {
 
   //grab state from redux
   const { user, isError, isSuccess, message } = useSelector(
-    (state) => state.auth,
-    );
+    (state) => state.auth
+  );
+
+  const {
+    businessUser,
+    isError: businessError,
+    isSuccess: businessSuccess,
+    message: businessMessage,
+  } = useSelector((state) => state.businesses);
+
+  const [isBusiness, setIsBusiness] = useState(false);
 
   useEffect(() => {
     if (isError) {
       console.log(message);
       window.alert(message);
     }
+
+    if (businessError) {
+      window.alert(businessMessage);
+    }
     if (isSuccess || user) {
       navigate('/home');
     }
 
+    if (businessSuccess || businessUser) {
+      navigate('/businessDashboard');
+    }
+
     dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
+    dispatch(businessReset());
+  }, [
+    user,
+    businessUser,
+    isError,
+    businessError,
+    isSuccess,
+    businessSuccess,
+    message,
+    businessMessage,
+    navigate,
+    dispatch,
+  ]);
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -49,15 +82,18 @@ const LoginModal = ({ setShowLogin }) => {
       email,
       password,
     };
-    dispatch(login(userData));
+    if (isBusiness) {
+      dispatch(loginBusiness(userData));
+      console.log('business');
+    } else dispatch(login(userData));
   };
 
   const handleClick = () => {
     setShowLogin(false);
   };
 
-  const google = () =>{
-    window.open("http://localhost:3005/auth/google", "_self");
+  const google = () => {
+    window.open('http://localhost:3005/auth/google', '_self');
   };
 
   const github = () =>{
@@ -85,7 +121,7 @@ const LoginModal = ({ setShowLogin }) => {
         <div className='right'>
           <form onSubmit={onSubmit}>
             <input
-              autocomplete='off'
+              autoComplete='off'
               type='email'
               id='email'
               name='email'
@@ -95,7 +131,7 @@ const LoginModal = ({ setShowLogin }) => {
               onChange={onChange}
             />
             <input
-              autocomplete='off'
+              autoComplete='off'
               type='password'
               id='password'
               name='password'
@@ -107,12 +143,19 @@ const LoginModal = ({ setShowLogin }) => {
             <button className='stdButton' type='submit'>
               Login
             </button>
+            <p>Business?</p>
+            <input
+              type='checkbox'
+              checked={isBusiness}
+              onChange={() => {
+                setIsBusiness(!isBusiness);
+              }}
+            />
           </form>
         </div>
       </div>
     </div>
   );
 };
-
 
 export default LoginModal;

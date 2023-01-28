@@ -8,9 +8,7 @@ const Checkin = () => {
     <>
       <div>
         <Header />
-        <div>
-          <CheckinDetails />
-        </div>
+        <CheckinDetails />
       </div>
     </>
   );

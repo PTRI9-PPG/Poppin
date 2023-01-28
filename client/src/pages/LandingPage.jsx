@@ -4,24 +4,21 @@ import bar from '../assets/images/bar.jpg';
 import Header from '../components/Header';
 import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
+import BusinessRegisterModal from '../components/RegisterModal';
 import FootImg from './svg/footer.svg';
-import { useInView } from 'react-intersection-observer';
 
 const LandingPage = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showReg, setShowReg] = useState(false);
-
-  const [ref, inView] = useInView({
-    /* options */
-    threshold: 0.5, // the amount of the element that needs to be in the viewport to trigger the callback
-  });
-
+  const [showRegBusiness, setShowRegBusiness] = useState(false);
   return (
     <>
       <div
-        className='landingPage'
+        className="landingPage"
         style={{
-          filter: showLogin || showReg ? 'blur(5px)' : 'none',
+          filter:
+            showLogin || showReg || showRegBusiness ? 'blur(5px)' : 'none',
+          opacity: showLogin || showReg || showRegBusiness ? '.7' : '1',
           overflow: 'hidden',
         }}
       >
@@ -29,13 +26,13 @@ const LandingPage = () => {
           <Header setShowLogin={setShowLogin} setShowReg={setShowReg} />
         </div>
         {/* This will render the login and registration modals when clicked (and off when x'ed out) */}
-        <FootImg className='foot' />
+        <FootImg className="foot" />
         <div
-          className='parallax'
+          className="parallax"
           style={{ backgroundImage: 'url(' + bar + ')' }}
         />
-        <ul className='cards' ref={ref}>
-          <li className='card'>
+        <ul className="cards">
+          <li className="card">
             <div>
               <IoAccessibility />
               <IoAccessibility />
@@ -43,7 +40,7 @@ const LandingPage = () => {
             <h2>Hate Crowds?</h2>
             <p>Find a great deal while being in a more intimate setting.</p>
           </li>
-          <li className='card'>
+          <li className="card">
             <div>
               <IoAccessibility />
               <IoAccessibility />
@@ -56,7 +53,7 @@ const LandingPage = () => {
               you find the livest venue in town!
             </p>
           </li>
-          <li className='card'>
+          <li className="card">
             <div>
               <IoAccessibility />
               <IoAccessibility />

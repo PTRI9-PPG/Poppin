@@ -11,7 +11,7 @@ import { setCheckedIn } from '../features/auth/authSlice';
 
 const CheckIn_OutModal = ({ setShowCheckinModal }) => {
   const { selectedBusiness, message } = useSelector(
-    (state) => state.businesses,
+    (state) => state.businesses
   );
   const { checkedIn } = useSelector((state) => state.auth);
 
@@ -24,9 +24,11 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
     e.preventDefault();
     console.log('button clicked');
     try {
-      const response = dispatch(
-        checkCode({ id: selectedBusiness.id, code: code }),
+      const response = await dispatch(
+        checkCode({ id: selectedBusiness.id, code: code })
       );
+      console.log('RESPONSEEE', response);
+
       if (response.payload.message === 'Code matched, new code generated') {
         dispatch(setCheckedIn(true));
         dispatch(
@@ -34,9 +36,10 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
             id: selectedBusiness.id,
             currentcapacity: selectedBusiness.currentcapacity,
             poppinscore: selectedBusiness.poppinscore,
-          }),
+          })
         );
-        dispatch(getAllBusinesses());
+        dispatch(getAllBusinesses()); //not sure if still needed, check later
+        // window.location.reload();
         setShowCheckinModal(false);
       } else {
         console.log('message', message);
@@ -61,31 +64,27 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
   };
 
   return (
-    <>
-      <div>
-        <div onClick={handleClick}>
-          <AiOutlineCloseCircle size={25} />
+    <div className="checkFlex">
+      <div className="checkIn">
+        <div onClick={handleClick} className="x">
+          <AiOutlineCloseCircle />
         </div>
         <h2>Ask Your Server For A Code:</h2>
         <form onSubmit={handleSubmit}>
           <input
-            type='text'
-            id='code'
-            name='code'
-            placeholder='code'
+            type="text"
+            id="code"
+            name="code"
+            placeholder="code"
             required={true}
             value={code}
             onChange={(e) => setCode(e.target.value)}
           />
           {showAlert ? <Alert /> : null}
-          {!checkedIn ? (
-            <button type='submit'>Check In</button>
-          ) : (
-            <button type='submit'>Check Out</button>
-          )}
+          <button type="submit">Check In</button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
