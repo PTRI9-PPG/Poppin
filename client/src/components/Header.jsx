@@ -91,6 +91,9 @@ const Header = ({
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>
+            <div className="userpic">
+              <img src={user.image}></img>
+            </div>
           </>
         ) : (
           <>

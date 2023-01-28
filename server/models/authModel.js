@@ -6,6 +6,12 @@ const AuthSchema = new Schema({
     },
     googleID: {
         type: String,
+    },
+    image: {
+        type: [String],
+    },
+    githubID:{
+        type: String,
     }
 });
 
