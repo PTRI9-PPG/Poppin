@@ -5,7 +5,6 @@ import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import corkMarker from '../assets/images/corkMarker';
 import Checkin from './Checkin';
-import API_KEY from '../../../key';
 
 import {
   MarkerF,
@@ -42,7 +41,7 @@ const Dashboard = () => {
   //useJsApiLoader will leverage the api loader from google to make the request to the API
   //don't use loadscript if using useJSApiLoader
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: API_KEY,
+    googleMapsApiKey: 'AIzaSyBOmUdPFajTuOGEToI5m7BqzXXwDp0voWU',
     libraries: ['places'],
   });
 
