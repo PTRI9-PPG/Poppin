@@ -13,7 +13,7 @@ function RegisterModal({ setShowReg }) {
     password2: '',
   });
 
-  const [isChecked, setIsChecked] = useState(false);
+  const [isBusiness, setisBusiness] = useState(false);
 
   const { email, password, password2 } = formData;
 
@@ -72,7 +72,7 @@ function RegisterModal({ setShowReg }) {
       return;
     }
     const userInfo = { email, password };
-    if (!isChecked) {
+    if (!isBusiness) {
       dispatch(register(userInfo));
     } else {
       dispatch(initialRegisterBusiness(userInfo));
@@ -85,47 +85,47 @@ function RegisterModal({ setShowReg }) {
 
   return (
     <>
-      <div className="authPrompt">
+      <div className='authPrompt'>
         <div onClick={handleClick}>
           <AiOutlineCloseCircle />
         </div>
         <h2>Register</h2>
         <form onSubmit={handleSubmit}>
           <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="email"
+            type='email'
+            id='email'
+            name='email'
+            placeholder='email'
             required={true}
             onChange={onChange}
           />
           <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="password"
+            type='password'
+            id='password'
+            name='password'
+            placeholder='password'
             required={true}
             onChange={onChange}
           />
           <input
-            type="password"
-            id="password2"
-            name="password2"
-            placeholder="confirm password"
+            type='password'
+            id='password2'
+            name='password2'
+            placeholder='confirm password'
             required={true}
             onChange={onChange}
           />
-          <button type="submit" className="button">
+          <button type='submit' className='button'>
             Submit
           </button>
-          <div className="isBusinessBox">
+          <div className='isBusinessBox'>
             <p>Business?</p>
             <input
-              className="checkbox"
-              type="checkbox"
-              checked={isChecked}
+              className='checkbox'
+              type='checkbox'
+              checked={isBusiness}
               onChange={(e) => {
-                setIsChecked(!isChecked);
+                setisBusiness(!isBusiness);
               }}
             />
           </div>

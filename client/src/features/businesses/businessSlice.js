@@ -51,6 +51,8 @@ export const loginBusiness = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const response = await axios.post(businessURL + 'login', data);
+      localStorage.setItem('businessUser', JSON.stringify(response.data));
+      return response.data;
     } catch (err) {
       const message = err.response?.data.message || err.toString();
       return rejectWithValue(message);

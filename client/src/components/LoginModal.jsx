@@ -6,6 +6,10 @@ import { login, reset } from '../features/auth/authSlice';
 // import GoogleAuth from './GoogleAuth';
 import Google from '../assets/images/google.png';
 import Github from '../assets/images/github.png';
+import {
+  loginBusiness,
+  reset as businessReset,
+} from '../features/businesses/businessSlice';
 
 const LoginModal = ({ setShowLogin }) => {
   const [formData, setFormData] = useState({
@@ -24,6 +28,13 @@ const LoginModal = ({ setShowLogin }) => {
     (state) => state.auth
   );
 
+  const {
+    businessUser,
+    isError: businessError,
+    isSuccess: businessSuccess,
+    message: businessMessage,
+  } = useSelector((state) => state.businesses);
+
   const [isBusiness, setIsBusiness] = useState(false);
 
   useEffect(() => {
@@ -31,12 +42,32 @@ const LoginModal = ({ setShowLogin }) => {
       console.log(message);
       window.alert(message);
     }
+
+    if (businessError) {
+      window.alert(businessMessage);
+    }
     if (isSuccess || user) {
       navigate('/home');
     }
 
+    if (businessSuccess || businessUser) {
+      navigate('/businessDashboard');
+    }
+
     dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
+    dispatch(businessReset());
+  }, [
+    user,
+    businessUser,
+    isError,
+    businessError,
+    isSuccess,
+    businessSuccess,
+    message,
+    businessMessage,
+    navigate,
+    dispatch,
+  ]);
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -52,6 +83,7 @@ const LoginModal = ({ setShowLogin }) => {
       password,
     };
     if (isBusiness) {
+      dispatch(loginBusiness(userData));
       console.log('business');
     } else dispatch(login(userData));
   };
