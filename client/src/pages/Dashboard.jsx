@@ -5,17 +5,14 @@ import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import corkMarker from '../assets/images/corkMarker';
 import Checkin from './Checkin';
+import API_KEY from '../../../key';
 
-import API_KEY from '../../key';
 import {
   MarkerF,
   GoogleMap,
   useJsApiLoader,
   StandaloneSearchBox,
 } from '@react-google-maps/api';
-import { useSelector } from 'react-redux';
-
-import axios from 'axios';
 
 const Dashboard = () => {
   //intialize state for map and searchbox
@@ -45,7 +42,7 @@ const Dashboard = () => {
   //useJsApiLoader will leverage the api loader from google to make the request to the API
   //don't use loadscript if using useJSApiLoader
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: API_KEY,
+    googleMapsApiKey: 'AIzaSyBOmUdPFajTuOGEToI5m7BqzXXwDp0voWU',
     libraries: ['places'],
   });
 
@@ -67,7 +64,7 @@ const Dashboard = () => {
           'lat: ',
           bar.geometry.location.lat(),
           'lng: ',
-          bar.geometry.location.lng()
+          bar.geometry.location.lng(),
         );
         latLngArr.push({
           lat: parseFloat(bar.geometry.location.lat()),
@@ -156,15 +153,15 @@ const Dashboard = () => {
 
   return isLoaded ? (
     <>
-      <div className="Dashboard">
-        <Header className="header" />
+      <div className='Dashboard'>
+        <Header className='header' />
         <StandaloneSearchBox
           onLoad={onSBLoad}
           onPlacesChanged={onPlacesChanged}
         >
           <form
             onSubmit={handleSubmit}
-            className="search"
+            className='search'
             style={
               searched
                 ? {
@@ -185,7 +182,7 @@ const Dashboard = () => {
             }
           >
             <input
-              type="text"
+              type='text'
               placeholder={
                 searched ? 'Address' : 'Where Would You Like to Search?'
               }
@@ -219,7 +216,7 @@ const Dashboard = () => {
           {/* End User Form Section */}
           {/* Map section */}
           <div
-            className="MapContainer"
+            className='MapContainer'
             style={{
               filter: searched ? 'none' : 'blur(5px)',
             }}
