@@ -3,7 +3,6 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   checkCode,
-  getAllBusinesses,
   updateBusiness,
 } from '../features/businesses/businessSlice';
 import Alert from './Alert';
@@ -38,7 +37,6 @@ const CheckIn_OutModal = ({ setShowCheckinModal }) => {
             poppinscore: selectedBusiness.poppinscore,
           })
         );
-        dispatch(getAllBusinesses()); //not sure if still needed, check later
         // window.location.reload();
         setShowCheckinModal(false);
       } else {

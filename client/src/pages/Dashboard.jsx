@@ -42,7 +42,7 @@ const Dashboard = () => {
   //useJsApiLoader will leverage the api loader from google to make the request to the API
   //don't use loadscript if using useJSApiLoader
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyBOmUdPFajTuOGEToI5m7BqzXXwDp0voWU',
+    googleMapsApiKey: API_KEY,
     libraries: ['places'],
   });
 
