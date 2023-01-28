@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getAllBusinesses } from '../features/businesses/businessSlice';
 import BusinessCard from './BusinessCard';
 
 const BusinessCardContainer = ({
@@ -14,8 +13,8 @@ const BusinessCardContainer = ({
 
   useEffect(() => {
     //fetching all businesses from backend
-    dispatch(getAllBusinesses());
-  }, [dispatch]); //If you remove the dispatch from the dependency array, the useEffect hook will run on every render of BusinessCardContainer, bad for performance
+    // dispatch(getAllBusinesses());
+  }, []); //If you remove the dispatch from the dependency array, the useEffect hook will run on every render of BusinessCardContainer, bad for performance
 
   return (
     <>
