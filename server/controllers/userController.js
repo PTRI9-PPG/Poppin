@@ -30,29 +30,32 @@ const register = async (req, res, next) => {
 };
 
 // User login
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   const { email, password } = req.body;
+  try {
+    if (!email || !password) {
+      res.status(400);
+      throw new Error('Email and password are required');
+    }
 
-  if (!email || !password) {
-    res.status(400);
-    throw new Error('Email and password are required');
+    const user = await User.findOne({ email }).select('+password');
+    if (!user) {
+      res.status(500);
+      throw new Error('Invalid credentials');
+    }
+
+    const isPaswordCorrect = await user.comparePasswords(password);
+    if (!isPaswordCorrect) {
+      res.status(500);
+      throw new Error('Invalid credentials');
+    }
+
+    const token = user.createJWT();
+    const userData = { email: user.email };
+    res.status(StatusCodes.OK).json({ user: userData, token });
+  } catch (err) {
+    return next(err);
   }
-
-  const user = await User.findOne({ email }).select('+password');
-  if (!user) {
-    res.status(500);
-    throw new Error('Invalid credentials');
-  }
-
-  const isPaswordCorrect = await user.comparePasswords(password);
-  if (!isPaswordCorrect) {
-    res.status(500);
-    throw new Error('Invalid credentials');
-  }
-
-  const token = user.createJWT();
-  const userData = { email: user.email };
-  res.status(StatusCodes.OK).json({ user: userData, token });
 };
 
 //Google Oauth token
