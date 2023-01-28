@@ -59,20 +59,20 @@ const login = async (req, res, next) => {
 };
 
 //Google Oauth token
-const OauthLoginVerifyGoogleToken = async (req, res) => {
-  const { credential } = req.body;
+// const OauthLoginVerify = async (req, res) => {
+//   const { id } = req.body;
 
-  try {
-    const ticket = await client.verifyIdToken({
-      //JWT and client ID needed
-      idToken: credential.token,
-      audience: GOOGLE_CLIENT_ID,
-    });
-    return { payload: ticket.getPayload() };
-  } catch (error) {
-    return { error: 'Invalid user detected. Please try again' };
-  }
-};
+//   try {
+//     const ticket = await client.verifyIdToken({
+//       //JWT and client ID needed
+//       idToken: id.token,
+//       audience: GOOGLE_CLIENT_ID,
+//     });
+//     return { payload: ticket.getPayload() };
+//   } catch (error) {
+//     return { error: 'Invalid user detected. Please try again' };
+//   }
+// };
 
 // Update user
 const updateUser = async (req, res) => {
@@ -94,7 +94,6 @@ const deleteUser = async (req, res, next) => {
 module.exports = {
   register,
   login,
-  OauthLoginVerifyGoogleToken,
   updateUser,
   deleteUser,
 };

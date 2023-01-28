@@ -2,7 +2,6 @@ const express = require('express');
 const {
   register,
   login,
-  OauthLoginVerifyGoogleToken,
   updateUser,
   deleteUser } = require('../controllers/userController');
 
