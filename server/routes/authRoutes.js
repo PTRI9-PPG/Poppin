@@ -3,7 +3,7 @@ const passport = require("passport");
 
 const CLIENT_URL = "http://localhost:8080/#/home"
 
-router.get("/login", (req, res) => {
+router.get("/login/success", (req, res) => {
     if (req.user) {
       res.status(200).json({
         success: true,
