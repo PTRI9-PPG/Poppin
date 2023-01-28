@@ -25,16 +25,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/users', userRouter);
 app.use('/businesses', businessRoutes);
 
-//Oauth 
+// OAuth 
 const cookieSession = require("cookie-session");
 const cors = require('cors');
 const passportSetup = require('./oauth/passport');
-const authRoute = require('./oauth/auth');
 const passport = require('passport');
+const authRoutes = require('./routes/authRoutes');
 
-app.use(cookieSession(
-  {name: "session", keys: ["poppin"], maxAge: 24 * 60 * 60 * 100,}
-));
+app.use(
+  cookieSession({name: "session", keys: ['popping'],maxAge: 24 * 60 * 60 * 100})
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -47,7 +47,7 @@ app.use(
   })
 );
 
-app.use("/auth", authRoute);
+app.use("/auth", authRoutes);
 
 //error handler
 app.use(errorHandlerMiddleware);

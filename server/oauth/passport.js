@@ -1,7 +1,24 @@
-const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
+const passport = require('passport');
 const AuthUser = require('../models/authModel');
+
+// Serialize persists user.id into session
+passport.serializeUser((user,done) => {
+    console.log('userid--->',user.id)
+    done(null, user.id)
+ });
+ 
+ 
+ // Deserialize will retrieve user data from session
+passport.deserializeUser((id, done) => {
+    // console.log({id})
+   
+    AuthUser.findById(id).then((user) => {
+        console.log('user--->',user)
+        done(null, user);
+    })
+ }); 
 
 // Google Passport
 passport.use(new GoogleStrategy({
@@ -10,34 +27,34 @@ passport.use(new GoogleStrategy({
     callbackURL: "/auth/google/callback",
   }, async (accessToken, refreshToken, profile, done) => {
     // passport callback function
-    console.log(profile)
-    new AuthUser({
-        username: profile.displayName,
-        googleID: profile.id,
+    // console.log('profile--->',profile)
+    
+    // check if user already exists in our db so there's no duplicates
+   AuthUser.findOne({googleID: profile.id}).then((currUser) => {
+    if(currUser){
+        //already have the user
+        // console.log('User is: ', currUser);
+        //once we have an exisitng user, we will serialize it
+        done(null, currUser)
+    }else{
+        //if not, create user in our db
+        new AuthUser({
+            username: profile.displayName,
+            googleID: profile.id,
+        })
+        .save()
+        .then((newAuthUser) => newAuthUser.json())
+        .then(newAuthUser =>{
+            console.log('New user created: ' + newAuthUser);
+            //once we create a user, we will serialize it
+            done(null, newAuthUser);
+        });
+    }
     });
-  }
+    }
 ));
 
-// Github Passport
-passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "/auth/github/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    // User.findOrCreate({ githubId: profile.id }, function (err, user) {
-    //   return done(err, user);
-    // });
-    done(null, profile)
-  }
-));
 
-passport.serializeUser((user,done) => {
-    done(null, user)
-});
+module.exports = passport;
 
-passport.deserializeUser((user,done) => {
-    done(null, user)
-});
-
-module.export = passport;
+ 

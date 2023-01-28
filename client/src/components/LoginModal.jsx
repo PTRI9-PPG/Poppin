@@ -61,7 +61,7 @@ const LoginModal = ({ setShowLogin }) => {
   };
 
   const github = () =>{
-    window.open("http://localhost:3005/auth/github", "_self");
+    window.open("http://localhost:3005/auth/github")
   };
 
   return (
@@ -73,12 +73,10 @@ const LoginModal = ({ setShowLogin }) => {
       <div className='wrapper'>
         <div className='left'>
           <div className='loginButton google' onClick={google}>
-            <img src={Google} className="icon"/> 
-            Google
+            <img src={Google} className="icon"/> Google
           </div>
           <div className='loginButton github' onClick={github}>
-            <img src={Github} className="icon"/> 
-            Google
+            <img src={Github} className="icon"/> Github
           </div>
         </div>
         <div className='center'>
