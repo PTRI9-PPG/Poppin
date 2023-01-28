@@ -5,7 +5,7 @@ import CardContainer from '../components/BusinessCardContainer';
 import CheckIn_OutModal from '../components/CheckIn_OutModal';
 import corkMarker from '../assets/images/corkMarker';
 import Checkin from './Checkin';
-import API_KEY from '../../../server/key';
+// import API_KEY from '../../../key';
 
 import {
   MarkerF,
@@ -64,7 +64,7 @@ const Dashboard = () => {
           'lat: ',
           bar.geometry.location.lat(),
           'lng: ',
-          bar.geometry.location.lng(),
+          bar.geometry.location.lng()
         );
         latLngArr.push({
           lat: parseFloat(bar.geometry.location.lat()),
