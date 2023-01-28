@@ -1,5 +1,5 @@
 const express = require('express');
-const dotenv = require ('dotenv');
+const dotenv = require('dotenv');
 
 // db and authenticate user
 const connectDB = require('./db/connect.js');
@@ -25,15 +25,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/users', userRouter);
 app.use('/businesses', businessRoutes);
 
-// OAuth 
-const cookieSession = require("cookie-session");
+// OAuth
+const cookieSession = require('cookie-session');
 const cors = require('cors');
 const passportSetup = require('./oauth/passport');
 const passport = require('passport');
 const authRoutes = require('./routes/authRoutes');
 
 app.use(
-  cookieSession({name: "session", keys: ['popping'],maxAge: 24 * 60 * 60 * 100})
+  cookieSession({
+    name: 'session',
+    keys: ['popping'],
+    maxAge: 24 * 60 * 60 * 100,
+  }),
 );
 
 app.use(passport.initialize());
@@ -41,13 +45,13 @@ app.use(passport.session());
 
 app.use(
   cors({
-    origin: "http://localhost:8080",
-    methods: "GET, POST, PUT, DELETE",
+    origin: 'http://localhost:8080',
+    methods: 'GET, POST, PUT, DELETE',
     credentials: true,
-  })
+  }),
 );
 
-app.use("/auth", authRoutes);
+app.use('/auth', authRoutes);
 
 //error handler
 app.use(errorHandlerMiddleware);
