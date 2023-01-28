@@ -8,7 +8,7 @@ const AuthSchema = new Schema({
         type: String,
     },
     image: {
-        type: String,
+        type: [String],
     },
     githubID:{
         type: String,

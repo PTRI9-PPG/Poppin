@@ -22,7 +22,7 @@ const LoginModal = ({ setShowLogin }) => {
   //grab state from redux
   const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth,
-  );
+    );
 
   useEffect(() => {
     if (isError) {
