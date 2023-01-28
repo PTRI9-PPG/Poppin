@@ -7,7 +7,7 @@
     "test": "jest",
     "server": "nodemon server/server.js",
     "client": "webpack-dev-server",
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server & nodemon server/server.js",
     "dev2": "webpack serve --hot & nodemon server/server.js",
     "watch": "tailwindcss -i ./client/src/main.css -o ./client/css/index.css --watch"
   },

@@ -90,7 +90,8 @@ function RegisterModal({ setShowReg }) {
           <AiOutlineCloseCircle />
         </div>
         <h2>Register</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}
+        className='Reg'>
           <input
             type='email'
             id='email'
